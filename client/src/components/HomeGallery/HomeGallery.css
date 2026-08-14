@@ -1,0 +1,488 @@
+/* =========================================================
+   TRAVELBHARAT - HOME GALLERY
+========================================================= */
+
+.home-gallery {
+  padding: 60px 0;
+  overflow: hidden;
+  background: #f8fafc;
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.home-gallery-header {
+  margin-bottom: 28px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 30px;
+}
+
+.home-gallery-header > div {
+  max-width: 680px;
+}
+
+.home-gallery-header > div > span {
+  display: inline-block;
+
+  margin-bottom: 7px;
+
+  color: #f47d22;
+
+  font-size: 0.76rem;
+  font-weight: 850;
+
+  letter-spacing: 1.5px;
+
+  text-transform: uppercase;
+}
+
+.home-gallery-header h2 {
+  margin: 0 0 10px;
+
+  color: #10233f;
+
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 900;
+
+  line-height: 1.1;
+
+  letter-spacing: -1.3px;
+}
+
+.home-gallery-header p {
+  max-width: 650px;
+
+  margin: 0;
+
+  color: #64748b;
+
+  font-size: 0.95rem;
+
+  line-height: 1.7;
+}
+
+/* =========================================================
+   VIEW FULL GALLERY BUTTON
+========================================================= */
+
+.home-gallery-header > a {
+  min-height: 46px;
+
+  padding: 0 18px;
+
+  flex-shrink: 0;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 9px;
+
+  border-radius: 13px;
+
+  color: #ffffff;
+
+  text-decoration: none;
+
+  background: #10233f;
+
+  font-size: 0.87rem;
+  font-weight: 800;
+
+  box-shadow: 0 10px 25px rgba(16, 35, 63, 0.13);
+
+  transition:
+    background 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.home-gallery-header > a:hover {
+  color: #ffffff;
+
+  background: #f47d22;
+
+  transform: translateY(-2px);
+
+  box-shadow: 0 13px 28px rgba(244, 125, 34, 0.2);
+}
+
+/* =========================================================
+   SWIPER CONTAINER
+========================================================= */
+
+.home-gallery-swiper {
+  position: relative;
+
+  width: 100%;
+
+  overflow: hidden;
+
+  border-radius: 22px;
+
+  background: #dbe3ec;
+
+  box-shadow: 0 15px 38px rgba(15, 23, 42, 0.1);
+}
+
+/* =========================================================
+   GALLERY CARD
+========================================================= */
+
+.home-gallery-card {
+  position: relative;
+
+  width: 100%;
+  height: 380px;
+
+  overflow: hidden;
+
+  background: #dbe3ec;
+}
+
+/* =========================================================
+   GALLERY IMAGE
+========================================================= */
+
+.home-gallery-card img {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+  object-position: center;
+
+  transition: transform 0.55s ease;
+}
+
+.home-gallery-card:hover img {
+  transform: scale(1.035);
+}
+
+/* =========================================================
+   DARK IMAGE OVERLAY
+========================================================= */
+
+.home-gallery-overlay {
+  position: absolute;
+
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  padding: 90px 30px 28px;
+
+  color: #ffffff;
+
+  background: linear-gradient(
+    to top,
+    rgba(4, 15, 29, 0.94) 0%,
+    rgba(4, 15, 29, 0.58) 45%,
+    rgba(4, 15, 29, 0) 100%
+  );
+}
+
+/* Small gallery label */
+
+.home-gallery-overlay > span {
+  display: inline-block;
+
+  margin-bottom: 5px;
+
+  color: #ffad5c;
+
+  font-size: 0.68rem;
+  font-weight: 850;
+
+  letter-spacing: 1.1px;
+
+  text-transform: uppercase;
+}
+
+/* Place name */
+
+.home-gallery-overlay h3 {
+  margin: 0 0 4px;
+
+  color: #ffffff;
+
+  font-size: 1.55rem;
+  font-weight: 900;
+
+  line-height: 1.2;
+}
+
+/* City + State */
+
+.home-gallery-overlay p {
+  margin: 0;
+
+  color: rgba(255, 255, 255, 0.8);
+
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* =========================================================
+   SWIPER PREVIOUS / NEXT BUTTONS
+========================================================= */
+
+.home-gallery-swiper .swiper-button-prev,
+.home-gallery-swiper .swiper-button-next {
+  width: 42px;
+  height: 42px;
+
+  border-radius: 50%;
+
+  color: #ffffff;
+
+  background: rgba(8, 22, 38, 0.65);
+
+  backdrop-filter: blur(8px);
+
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+
+  transition:
+    background 0.25s ease,
+    transform 0.25s ease;
+}
+
+.home-gallery-swiper .swiper-button-prev:hover,
+.home-gallery-swiper .swiper-button-next:hover {
+  background: #f47d22;
+
+  transform: scale(1.05);
+}
+
+.home-gallery-swiper .swiper-button-prev::after,
+.home-gallery-swiper .swiper-button-next::after {
+  font-size: 15px;
+
+  font-weight: 900;
+}
+
+/* Move arrows slightly inside */
+
+.home-gallery-swiper .swiper-button-prev {
+  left: 16px;
+}
+
+.home-gallery-swiper .swiper-button-next {
+  right: 16px;
+}
+
+/* =========================================================
+   PAGINATION
+========================================================= */
+
+.home-gallery-swiper .swiper-pagination {
+  bottom: 14px;
+}
+
+/* Normal dot */
+
+.home-gallery-swiper .swiper-pagination-bullet {
+  width: 8px;
+  height: 8px;
+
+  margin: 0 4px !important;
+
+  background: rgba(255, 255, 255, 0.7);
+
+  opacity: 1;
+
+  transition: all 0.25s ease;
+}
+
+/* Active dot */
+
+.home-gallery-swiper .swiper-pagination-bullet-active {
+  width: 24px;
+
+  border-radius: 999px;
+
+  background: #ff9933;
+}
+
+/* =========================================================
+   LOADING / EMPTY GALLERY
+========================================================= */
+
+.home-gallery-empty {
+  min-height: 220px;
+
+  padding: 30px;
+
+  display: grid;
+  place-items: center;
+  align-content: center;
+
+  text-align: center;
+
+  color: #64748b;
+
+  border: 1px solid #e5eaf1;
+  border-radius: 20px;
+
+  background: #ffffff;
+
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.05);
+}
+
+.home-gallery-empty svg {
+  margin-bottom: 9px;
+
+  color: #f47d22;
+}
+
+.home-gallery-empty h3 {
+  margin: 7px 0 5px;
+
+  color: #10233f;
+
+  font-size: 1.15rem;
+  font-weight: 850;
+}
+
+.home-gallery-empty p {
+  margin: 0;
+
+  color: #64748b;
+
+  font-size: 0.9rem;
+}
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+  .home-gallery {
+    padding: 55px 0;
+  }
+
+  .home-gallery-header {
+    align-items: flex-start;
+
+    flex-direction: column;
+
+    gap: 20px;
+  }
+
+  .home-gallery-header > a {
+    width: 100%;
+  }
+
+  .home-gallery-card {
+    height: 330px;
+  }
+
+  .home-gallery-overlay {
+    padding: 80px 25px 25px;
+  }
+
+  .home-gallery-overlay h3 {
+    font-size: 1.4rem;
+  }
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+  .home-gallery {
+    padding: 45px 0;
+  }
+
+  .home-gallery-header {
+    margin-bottom: 22px;
+  }
+
+  .home-gallery-header h2 {
+    font-size: 1.9rem;
+
+    letter-spacing: -0.8px;
+  }
+
+  .home-gallery-header p {
+    font-size: 0.9rem;
+
+    line-height: 1.6;
+  }
+
+  .home-gallery-card {
+    height: 260px;
+  }
+
+  .home-gallery-overlay {
+    padding: 65px 18px 32px;
+  }
+
+  .home-gallery-overlay > span {
+    font-size: 0.62rem;
+  }
+
+  .home-gallery-overlay h3 {
+    font-size: 1.25rem;
+  }
+
+  .home-gallery-overlay p {
+    font-size: 0.8rem;
+  }
+
+  .home-gallery-swiper .swiper-button-prev,
+  .home-gallery-swiper .swiper-button-next {
+    width: 36px;
+    height: 36px;
+  }
+
+  .home-gallery-swiper .swiper-button-prev {
+    left: 10px;
+  }
+
+  .home-gallery-swiper .swiper-button-next {
+    right: 10px;
+  }
+
+  .home-gallery-swiper .swiper-button-prev::after,
+  .home-gallery-swiper .swiper-button-next::after {
+    font-size: 12px;
+  }
+
+  .home-gallery-swiper .swiper-pagination {
+    bottom: 10px;
+  }
+}
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 420px) {
+  .home-gallery-card {
+    height: 230px;
+  }
+
+  .home-gallery-header > a {
+    min-height: 44px;
+
+    padding: 0 15px;
+  }
+
+  .home-gallery-overlay {
+    padding: 55px 16px 28px;
+  }
+
+  .home-gallery-swiper .swiper-button-prev,
+  .home-gallery-swiper .swiper-button-next {
+    width: 32px;
+    height: 32px;
+  }
+}

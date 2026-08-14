@@ -1,0 +1,602 @@
+/* =========================================================
+   TRAVELBHARAT NAVBAR
+========================================================= */
+
+.travel-header {
+  position: fixed;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+
+  z-index: 1000;
+
+  background: rgba(7, 26, 46, 0.88);
+
+  border-bottom:
+    1px solid rgba(255, 255, 255, 0.08);
+
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+
+  transition:
+    background 0.3s ease,
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.travel-header-scrolled {
+  background: rgba(7, 23, 37, 0.97);
+
+  border-bottom-color:
+    rgba(255, 255, 255, 0.06);
+
+  box-shadow:
+    0 8px 30px rgba(0, 0, 0, 0.16);
+}
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+.travel-navbar {
+  min-height: 82px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 30px;
+}
+
+/* =========================================================
+   BRAND
+========================================================= */
+
+.travel-brand {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 10px;
+
+  flex-shrink: 0;
+
+  color: #ffffff;
+
+  text-decoration: none;
+}
+
+.travel-brand:hover {
+  color: #ffffff;
+}
+
+.travel-brand-icon {
+  width: 43px;
+  height: 43px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 13px;
+
+  color: #ffffff;
+
+  background:
+    linear-gradient(
+      135deg,
+      #ff9933,
+      #f36c21
+    );
+
+  font-size: 1.18rem;
+
+  box-shadow:
+    0 9px 20px rgba(244, 125, 34, 0.25);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.travel-brand:hover
+.travel-brand-icon {
+  transform: rotate(-8deg) scale(1.04);
+
+  box-shadow:
+    0 12px 25px rgba(244, 125, 34, 0.32);
+}
+
+.travel-brand-text {
+  color: #ffffff;
+
+  font-size: 1.35rem;
+  font-weight: 900;
+
+  letter-spacing: -0.6px;
+}
+
+.travel-brand-text > span {
+  color: #ff9933;
+}
+
+/* =========================================================
+   NAVIGATION CONTENT
+========================================================= */
+
+.travel-nav-content {
+  flex: 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  gap: 28px;
+}
+
+/* =========================================================
+   NAV LINKS
+========================================================= */
+
+.travel-nav-links {
+  display: flex;
+  align-items: center;
+
+  gap: 4px;
+}
+
+.travel-nav-link {
+  position: relative;
+
+  padding: 30px 10px 28px;
+
+  color: rgba(255, 255, 255, 0.68);
+
+  text-decoration: none;
+
+  font-size: 0.81rem;
+  font-weight: 700;
+
+  transition: color 0.2s ease;
+}
+
+.travel-nav-link:hover {
+  color: #ffffff;
+}
+
+.travel-nav-link::after {
+  content: "";
+
+  position: absolute;
+
+  left: 50%;
+  bottom: 19px;
+
+  width: 0;
+  height: 2px;
+
+  border-radius: 999px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #ff9933,
+      #f36c21
+    );
+
+  transform: translateX(-50%);
+
+  transition: width 0.25s ease;
+}
+
+.travel-nav-link:hover::after {
+  width: 18px;
+}
+
+.travel-nav-link.active {
+  color: #ffffff;
+}
+
+.travel-nav-link.active::after {
+  width: 24px;
+}
+
+/* =========================================================
+   ACTIONS
+========================================================= */
+
+.travel-nav-actions {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+}
+
+/* SEARCH */
+
+.travel-search-button {
+  width: 40px;
+  height: 40px;
+
+  display: grid;
+  place-items: center;
+
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 11px;
+
+  color: rgba(255, 255, 255, 0.75);
+
+  background:
+    rgba(255, 255, 255, 0.055);
+
+  text-decoration: none;
+
+  transition:
+    color 0.2s ease,
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.travel-search-button:hover {
+  color: #ffffff;
+
+  background:
+    rgba(255, 255, 255, 0.11);
+
+  transform: translateY(-2px);
+}
+
+/* EXPLORE */
+
+.travel-explore-button {
+  min-height: 40px;
+
+  padding: 0 15px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+
+  border-radius: 11px;
+
+  color: #ffffff;
+
+  background:
+    linear-gradient(
+      135deg,
+      #ff9933,
+      #f36c21
+    );
+
+  text-decoration: none;
+
+  font-size: 0.77rem;
+  font-weight: 800;
+
+  box-shadow:
+    0 9px 20px rgba(244, 125, 34, 0.2);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.travel-explore-button:hover {
+  color: #ffffff;
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 13px 25px rgba(244, 125, 34, 0.3);
+}
+
+/* ADMIN */
+
+.travel-admin-button {
+  min-height: 40px;
+
+  padding: 0 13px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+
+  border:
+    1px solid rgba(255, 255, 255, 0.13);
+
+  border-radius: 11px;
+
+  color: rgba(255, 255, 255, 0.78);
+
+  background:
+    rgba(255, 255, 255, 0.055);
+
+  text-decoration: none;
+
+  font-size: 0.75rem;
+  font-weight: 750;
+
+  transition:
+    color 0.2s ease,
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.travel-admin-button:hover {
+  color: #ffffff;
+
+  background:
+    rgba(255, 255, 255, 0.11);
+
+  transform: translateY(-2px);
+}
+
+/* =========================================================
+   MOBILE TOGGLE
+========================================================= */
+
+.travel-menu-toggle {
+  width: 43px;
+  height: 43px;
+
+  display: none;
+  place-items: center;
+
+  border:
+    1px solid rgba(255, 255, 255, 0.12);
+
+  border-radius: 12px;
+
+  color: #ffffff;
+
+  background:
+    rgba(255, 255, 255, 0.07);
+
+  font-size: 1.1rem;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.travel-menu-toggle:hover {
+  background:
+    rgba(255, 255, 255, 0.13);
+}
+
+/* =========================================================
+   MOBILE OVERLAY
+========================================================= */
+
+.travel-mobile-overlay {
+  display: none;
+}
+
+/* =========================================================
+   MEDIUM SCREEN
+========================================================= */
+
+@media (max-width: 1100px) {
+  .travel-navbar {
+    gap: 15px;
+  }
+
+  .travel-nav-content {
+    gap: 14px;
+  }
+
+  .travel-nav-links {
+    gap: 0;
+  }
+
+  .travel-nav-link {
+    padding-left: 7px;
+    padding-right: 7px;
+
+    font-size: 0.75rem;
+  }
+
+  .travel-explore-button {
+    padding: 0 11px;
+  }
+
+  .travel-admin-button {
+    padding: 0 10px;
+  }
+}
+
+/* =========================================================
+   MOBILE / TABLET NAVIGATION
+========================================================= */
+
+@media (max-width: 900px) {
+  .travel-navbar {
+    min-height: 74px;
+  }
+
+  .travel-menu-toggle {
+    display: grid;
+
+    position: relative;
+
+    z-index: 1003;
+  }
+
+  .travel-nav-content {
+    position: fixed;
+
+    top: 0;
+    right: -100%;
+
+    width: min(360px, 88vw);
+    height: 100vh;
+
+    padding:
+      100px 25px 30px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+
+    gap: 25px;
+
+    overflow-y: auto;
+
+    background:
+      linear-gradient(
+        160deg,
+        #071a2e,
+        #0a3143
+      );
+
+    box-shadow:
+      -15px 0 45px rgba(0, 0, 0, 0.28);
+
+    transition: right 0.35s ease;
+
+    z-index: 1002;
+  }
+
+  .travel-nav-content.open {
+    right: 0;
+  }
+
+  /* LINKS */
+
+  .travel-nav-links {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+
+    gap: 5px;
+  }
+
+  .travel-nav-link {
+    padding: 14px 15px;
+
+    border-radius: 11px;
+
+    color:
+      rgba(255, 255, 255, 0.72);
+
+    font-size: 0.9rem;
+  }
+
+  .travel-nav-link::after {
+    display: none;
+  }
+
+  .travel-nav-link:hover {
+    color: #ffffff;
+
+    background:
+      rgba(255, 255, 255, 0.06);
+  }
+
+  .travel-nav-link.active {
+    color: #ffffff;
+
+    background:
+      linear-gradient(
+        90deg,
+        rgba(255, 153, 51, 0.18),
+        rgba(255, 153, 51, 0.05)
+      );
+
+    border-left:
+      3px solid #ff9933;
+  }
+
+  /* ACTIONS */
+
+  .travel-nav-actions {
+    padding-top: 20px;
+
+    display: grid;
+
+    grid-template-columns:
+      48px 1fr;
+
+    gap: 10px;
+
+    border-top:
+      1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .travel-search-button {
+    width: 48px;
+    height: 46px;
+  }
+
+  .travel-explore-button {
+    min-height: 46px;
+  }
+
+  .travel-admin-button {
+    min-height: 46px;
+
+    grid-column: 1 / -1;
+  }
+
+  /* OVERLAY */
+
+  .travel-mobile-overlay {
+    position: fixed;
+
+    inset: 0;
+
+    display: block;
+
+    border: none;
+
+    background:
+      rgba(2, 10, 18, 0.65);
+
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+
+    z-index: 999;
+
+    cursor: pointer;
+  }
+}
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+  .travel-navbar {
+    min-height: 70px;
+  }
+
+  .travel-brand-icon {
+    width: 39px;
+    height: 39px;
+
+    border-radius: 11px;
+  }
+
+  .travel-brand-text {
+    font-size: 1.17rem;
+  }
+
+  .travel-menu-toggle {
+    width: 40px;
+    height: 40px;
+  }
+
+  .travel-nav-content {
+    width: 90vw;
+
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}

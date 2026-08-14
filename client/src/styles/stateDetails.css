@@ -1,0 +1,603 @@
+/* =========================================================
+   STATE DETAILS PAGE
+========================================================= */
+
+.state-details-page {
+  min-height: 100vh;
+  background: #f7f9fc;
+}
+
+/* HERO */
+
+.state-details-hero {
+  position: relative;
+  height: 570px;
+  overflow: hidden;
+  background: #10233f;
+}
+
+.state-details-hero > img,
+.state-details-no-image {
+  width: 100%;
+  height: 100%;
+}
+
+.state-details-hero > img {
+  display: block;
+  object-fit: cover;
+}
+
+.state-details-no-image {
+  display: grid;
+  place-items: center;
+  color: #94a3b8;
+  background: #10233f;
+  font-size: 3rem;
+}
+
+.state-details-overlay {
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      to top,
+      rgba(4, 15, 29, 0.92),
+      rgba(4, 15, 29, 0.15)
+    );
+}
+
+.state-details-hero-content {
+  position: absolute;
+  left: 50%;
+  bottom: 55px;
+  z-index: 2;
+
+  width: 100%;
+
+  transform: translateX(-50%);
+
+  color: #ffffff;
+}
+
+.state-details-hero-content > a {
+  margin-bottom: 20px;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  color: #ffffff;
+
+  text-decoration: none;
+
+  font-weight: 750;
+}
+
+.state-details-hero-content > span {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: #ffad5c;
+
+  font-size: 0.75rem;
+  font-weight: 850;
+
+  letter-spacing: 1.5px;
+}
+
+.state-details-hero-content h1 {
+  margin: 0 0 8px;
+
+  color: #ffffff;
+
+  font-size: clamp(3rem, 7vw, 5.8rem);
+  font-weight: 900;
+
+  letter-spacing: -3px;
+}
+
+.state-details-hero-content p {
+  margin: 0;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  color: rgba(255, 255, 255, 0.82);
+
+  font-size: 1rem;
+}
+
+/* ABOUT */
+
+.state-about-section {
+  padding: 70px 0 35px;
+}
+
+.state-about-grid {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1.3fr)
+    minmax(280px, 0.7fr);
+
+  gap: 24px;
+
+  align-items: stretch;
+}
+
+.state-about-card,
+.state-summary-card {
+  border: 1px solid #e5eaf1;
+  border-radius: 22px;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 15px 40px rgba(15, 23, 42, 0.06);
+}
+
+.state-about-card {
+  padding: 32px;
+}
+
+.state-about-card > span {
+  color: #f47d22;
+
+  font-size: 0.74rem;
+  font-weight: 850;
+
+  letter-spacing: 1.3px;
+}
+
+.state-about-card h2 {
+  margin: 8px 0 14px;
+
+  color: #10233f;
+
+  font-size: 2rem;
+  font-weight: 900;
+}
+
+.state-about-card p {
+  margin: 0;
+
+  color: #64748b;
+
+  line-height: 1.85;
+}
+
+/* SUMMARY */
+
+.state-summary-card {
+  padding: 10px 26px;
+}
+
+.state-summary-card > div {
+  padding: 20px 0;
+
+  border-bottom: 1px solid #edf1f5;
+}
+
+.state-summary-card > div:last-child {
+  border-bottom: none;
+}
+
+.state-summary-card span,
+.state-summary-card strong {
+  display: block;
+}
+
+.state-summary-card span {
+  margin-bottom: 4px;
+
+  color: #94a3b8;
+
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.state-summary-card strong {
+  color: #20344f;
+
+  font-size: 1rem;
+  font-weight: 850;
+}
+
+/* PLACES SECTION */
+
+.state-places-section {
+  padding: 45px 0 100px;
+}
+
+.state-places-header {
+  margin-bottom: 30px;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  gap: 25px;
+}
+
+.state-places-header > div {
+  max-width: 650px;
+}
+
+.state-places-header > div > span {
+  color: #f47d22;
+
+  font-size: 0.74rem;
+  font-weight: 850;
+
+  letter-spacing: 1.4px;
+}
+
+.state-places-header h2 {
+  margin: 7px 0 8px;
+
+  color: #10233f;
+
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 900;
+
+  letter-spacing: -1.3px;
+}
+
+.state-places-header p {
+  margin: 0;
+
+  color: #64748b;
+}
+
+.state-place-count {
+  padding: 9px 14px;
+
+  flex-shrink: 0;
+
+  border-radius: 999px;
+
+  color: #b45309;
+
+  background: #fff7ed;
+
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+/* PLACE GRID */
+
+.state-places-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 23px;
+}
+
+/* PLACE CARD */
+
+.state-place-card {
+  overflow: hidden;
+
+  border: 1px solid #e7ecf2;
+  border-radius: 21px;
+
+  color: inherit;
+
+  text-decoration: none;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 14px 38px rgba(15, 23, 42, 0.07);
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.state-place-card:hover {
+  color: inherit;
+
+  transform: translateY(-6px);
+
+  box-shadow:
+    0 22px 48px rgba(15, 23, 42, 0.12);
+}
+
+/* IMAGE */
+
+.state-place-image {
+  position: relative;
+
+  height: 230px;
+
+  overflow: hidden;
+
+  background: #e2e8f0;
+}
+
+.state-place-image img {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+
+  transition: transform 0.45s ease;
+}
+
+.state-place-card:hover
+.state-place-image img {
+  transform: scale(1.06);
+}
+
+.state-place-image > span {
+  position: absolute;
+
+  top: 15px;
+  left: 15px;
+
+  padding: 6px 11px;
+
+  border-radius: 999px;
+
+  color: #ffffff;
+
+  background: rgba(16, 35, 63, 0.88);
+
+  font-size: 0.68rem;
+  font-weight: 800;
+}
+
+.state-place-no-image {
+  width: 100%;
+  height: 100%;
+
+  display: grid;
+  place-items: center;
+
+  color: #94a3b8;
+
+  font-size: 2rem;
+}
+
+/* CARD CONTENT */
+
+.state-place-content {
+  padding: 20px;
+}
+
+.state-place-content h3 {
+  margin: 0 0 7px;
+
+  color: #10233f;
+
+  font-size: 1.25rem;
+  font-weight: 850;
+}
+
+.state-place-location {
+  margin: 0 0 12px;
+
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  color: #64748b;
+
+  font-size: 0.84rem;
+}
+
+.state-place-location svg {
+  color: #f47d22;
+}
+
+.state-place-description {
+  min-height: 66px;
+
+  margin: 0 0 15px;
+
+  overflow: hidden;
+
+  color: #64748b;
+
+  font-size: 0.85rem;
+
+  line-height: 1.65;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+/* META */
+
+.state-place-meta {
+  margin-bottom: 15px;
+}
+
+.state-place-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+
+  padding: 7px 10px;
+
+  border-radius: 10px;
+
+  color: #405168;
+
+  background: #f8fafc;
+
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+
+.state-place-meta svg {
+  color: #f47d22;
+}
+
+/* FOOTER */
+
+.state-place-footer {
+  padding-top: 14px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  border-top: 1px solid #edf1f5;
+
+  color: #f47d22;
+
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.state-place-footer strong {
+  font-size: 1.15rem;
+
+  transition: transform 0.25s ease;
+}
+
+.state-place-card:hover
+.state-place-footer strong {
+  transform: translateX(4px);
+}
+
+/* EMPTY */
+
+.state-no-places,
+.state-details-message {
+  min-height: 300px;
+
+  display: grid;
+  place-items: center;
+  align-content: center;
+
+  text-align: center;
+
+  color: #64748b;
+
+  border: 1px solid #e5eaf1;
+  border-radius: 22px;
+
+  background: #ffffff;
+}
+
+.state-no-places > svg {
+  color: #f47d22;
+
+  font-size: 2rem;
+}
+
+.state-no-places h3,
+.state-details-message h3 {
+  margin: 10px 0 5px;
+
+  color: #10233f;
+}
+
+.state-no-places p,
+.state-details-message p {
+  margin: 0;
+}
+
+.state-details-message {
+  min-height: 100vh;
+}
+
+.state-details-message a {
+  margin-top: 15px;
+
+  color: #f47d22;
+
+  font-weight: 800;
+
+  text-decoration: none;
+}
+
+.state-details-loader {
+  width: 42px;
+  height: 42px;
+
+  margin-bottom: 10px;
+
+  border: 4px solid #e2e8f0;
+  border-top-color: #f47d22;
+
+  border-radius: 50%;
+
+  animation:
+    state-details-spin 0.8s linear infinite;
+}
+
+@keyframes state-details-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* TABLET */
+
+@media (max-width: 950px) {
+  .state-about-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .state-places-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .state-details-hero {
+    height: 500px;
+  }
+}
+
+/* MOBILE */
+
+@media (max-width: 650px) {
+  .state-details-hero {
+    height: 430px;
+  }
+
+  .state-details-hero-content {
+    bottom: 35px;
+  }
+
+  .state-details-hero-content h1 {
+    letter-spacing: -1.5px;
+  }
+
+  .state-about-section {
+    padding: 55px 0 25px;
+  }
+
+  .state-about-card {
+    padding: 24px 20px;
+  }
+
+  .state-places-section {
+    padding: 35px 0 70px;
+  }
+
+  .state-places-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .state-places-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .state-place-image {
+    height: 220px;
+  }
+}

@@ -1,0 +1,650 @@
+/* =========================================================
+   TRAVELBHARAT - STATES PAGE
+========================================================= */
+
+.states-page {
+  min-height: 100vh;
+  background: #f7f9fc;
+}
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.states-hero {
+  position: relative;
+
+  padding: 170px 0 100px;
+
+  overflow: hidden;
+
+  color: #ffffff;
+
+  background:
+    radial-gradient(
+      circle at 80% 20%,
+      rgba(244, 125, 34, 0.24),
+      transparent 32%
+    ),
+    linear-gradient(
+      135deg,
+      #071a2e 0%,
+      #0c3045 55%,
+      #105265 100%
+    );
+}
+
+.states-hero::after {
+  content: "";
+
+  position: absolute;
+
+  width: 400px;
+  height: 400px;
+
+  right: -100px;
+  bottom: -220px;
+
+  border: 70px solid rgba(255, 255, 255, 0.04);
+
+  border-radius: 50%;
+}
+
+.states-hero .container {
+  position: relative;
+  z-index: 2;
+}
+
+.states-hero span {
+  display: inline-block;
+
+  margin-bottom: 12px;
+
+  color: #ffad5c;
+
+  font-size: 0.78rem;
+  font-weight: 850;
+
+  letter-spacing: 1.7px;
+
+  text-transform: uppercase;
+}
+
+.states-hero h1 {
+  max-width: 800px;
+
+  margin: 0 0 20px;
+
+  color: #ffffff;
+
+  font-size: clamp(3rem, 6vw, 5.4rem);
+  font-weight: 900;
+
+  line-height: 1.02;
+
+  letter-spacing: -3px;
+}
+
+.states-hero p {
+  max-width: 680px;
+
+  margin: 0;
+
+  color: rgba(255, 255, 255, 0.76);
+
+  font-size: 1.03rem;
+
+  line-height: 1.8;
+}
+
+/* =========================================================
+   STATES SECTION
+========================================================= */
+
+.states-section {
+  padding: 80px 0 100px;
+}
+
+/* =========================================================
+   SECTION HEADER
+========================================================= */
+
+.states-section-header {
+  margin-bottom: 30px;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  gap: 30px;
+}
+
+.states-section-header > div:first-child {
+  max-width: 650px;
+}
+
+.states-section-header > div:first-child > span {
+  display: inline-block;
+
+  margin-bottom: 7px;
+
+  color: #f47d22;
+
+  font-size: 0.75rem;
+  font-weight: 850;
+
+  letter-spacing: 1.4px;
+
+  text-transform: uppercase;
+}
+
+.states-section-header h2 {
+  margin: 0 0 9px;
+
+  color: #10233f;
+
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 900;
+
+  letter-spacing: -1.3px;
+}
+
+.states-section-header p {
+  margin: 0;
+
+  color: #64748b;
+
+  line-height: 1.7;
+}
+
+/* =========================================================
+   STATE COUNT
+========================================================= */
+
+.states-count {
+  min-width: 120px;
+
+  padding: 17px 22px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 9px;
+
+  border: 1px solid #e7ecf2;
+  border-radius: 16px;
+
+  background: #ffffff;
+
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+}
+
+.states-count strong {
+  color: #f47d22;
+
+  font-size: 1.6rem;
+  font-weight: 900;
+}
+
+.states-count span {
+  color: #64748b;
+
+  font-size: 0.82rem;
+  font-weight: 750;
+}
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+.states-search-wrapper {
+  margin-bottom: 35px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+}
+
+.states-search {
+  width: min(100%, 520px);
+  min-height: 52px;
+
+  padding: 0 17px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 11px;
+
+  border: 1px solid #dce4ed;
+  border-radius: 15px;
+
+  color: #f47d22;
+
+  background: #ffffff;
+
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+}
+
+.states-search:focus-within {
+  border-color: #f47d22;
+
+  box-shadow:
+    0 0 0 4px rgba(244, 125, 34, 0.08),
+    0 10px 30px rgba(15, 23, 42, 0.05);
+}
+
+.states-search input {
+  width: 100%;
+
+  border: none;
+  outline: none;
+
+  color: #263950;
+
+  background: transparent;
+
+  font-size: 0.92rem;
+}
+
+.states-search input::placeholder {
+  color: #9aa7b8;
+}
+
+.states-search-wrapper > span {
+  color: #8491a3;
+
+  font-size: 0.83rem;
+  font-weight: 700;
+}
+
+/* =========================================================
+   GRID
+========================================================= */
+
+.states-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 24px;
+}
+
+/* =========================================================
+   STATE CARD
+========================================================= */
+
+.state-card {
+  overflow: hidden;
+
+  border: 1px solid #e7ecf2;
+  border-radius: 22px;
+
+  color: inherit;
+
+  text-decoration: none;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 14px 38px rgba(15, 23, 42, 0.07);
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.state-card:hover {
+  color: inherit;
+
+  border-color: rgba(244, 125, 34, 0.25);
+
+  transform: translateY(-7px);
+
+  box-shadow:
+    0 24px 50px rgba(15, 23, 42, 0.13);
+}
+
+/* =========================================================
+   CARD IMAGE
+========================================================= */
+
+.state-card-image {
+  position: relative;
+
+  height: 270px;
+
+  overflow: hidden;
+
+  background: #dbe3ec;
+}
+
+.state-card-image > img {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+
+  transition: transform 0.55s ease;
+}
+
+.state-card:hover .state-card-image > img {
+  transform: scale(1.07);
+}
+
+.state-no-image {
+  width: 100%;
+  height: 100%;
+
+  display: grid;
+  place-items: center;
+
+  color: #94a3b8;
+
+  background:
+    linear-gradient(
+      135deg,
+      #e2e8f0,
+      #cbd5e1
+    );
+
+  font-size: 2.5rem;
+}
+
+.state-image-overlay {
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    linear-gradient(
+      to top,
+      rgba(4, 15, 29, 0.9) 0%,
+      rgba(4, 15, 29, 0.2) 60%,
+      transparent 100%
+    );
+}
+
+/* =========================================================
+   IMAGE TITLE
+========================================================= */
+
+.state-card-title {
+  position: absolute;
+
+  left: 22px;
+  right: 22px;
+  bottom: 20px;
+
+  color: #ffffff;
+}
+
+.state-card-title > span {
+  display: inline-block;
+
+  margin-bottom: 4px;
+
+  color: #ffad5c;
+
+  font-size: 0.68rem;
+  font-weight: 850;
+
+  letter-spacing: 1.1px;
+
+  text-transform: uppercase;
+}
+
+.state-card-title h2 {
+  margin: 0 0 6px;
+
+  color: #ffffff;
+
+  font-size: 1.65rem;
+  font-weight: 900;
+}
+
+.state-card-title p {
+  margin: 0;
+
+  display: flex;
+  align-items: center;
+
+  gap: 6px;
+
+  color: rgba(255, 255, 255, 0.8);
+
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+/* =========================================================
+   CARD CONTENT
+========================================================= */
+
+.state-card-content {
+  padding: 20px 22px 21px;
+}
+
+.state-card-content > p {
+  min-height: 72px;
+
+  margin: 0 0 18px;
+
+  overflow: hidden;
+
+  color: #64748b;
+
+  font-size: 0.88rem;
+
+  line-height: 1.7;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+/* =========================================================
+   CARD FOOTER
+========================================================= */
+
+.state-card-footer {
+  padding-top: 15px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 15px;
+
+  border-top: 1px solid #edf1f5;
+}
+
+.state-card-footer > span {
+  color: #f47d22;
+
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.state-card-footer > div {
+  width: 34px;
+  height: 34px;
+
+  display: grid;
+  place-items: center;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  color: #f47d22;
+
+  background: #fff7ed;
+
+  transition:
+    color 0.25s ease,
+    background 0.25s ease,
+    transform 0.25s ease;
+}
+
+.state-card:hover .state-card-footer > div {
+  color: #ffffff;
+
+  background: #f47d22;
+
+  transform: translateX(3px);
+}
+
+/* =========================================================
+   LOADING / EMPTY / ERROR
+========================================================= */
+
+.states-message {
+  min-height: 320px;
+
+  display: grid;
+  place-items: center;
+  align-content: center;
+
+  text-align: center;
+
+  color: #64748b;
+
+  border: 1px solid #e7ecf2;
+  border-radius: 22px;
+
+  background: #ffffff;
+}
+
+.states-message > svg {
+  margin-bottom: 10px;
+
+  color: #f47d22;
+
+  font-size: 2.2rem;
+}
+
+.states-message h3 {
+  margin: 8px 0 5px;
+
+  color: #10233f;
+
+  font-weight: 850;
+}
+
+.states-message p {
+  margin: 0;
+
+  color: #8491a3;
+}
+
+.states-loader {
+  width: 42px;
+  height: 42px;
+
+  margin-bottom: 12px;
+
+  border: 4px solid #e2e8f0;
+  border-top-color: #f47d22;
+
+  border-radius: 50%;
+
+  animation: states-spin 0.8s linear infinite;
+}
+
+@keyframes states-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1000px) {
+  .states-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .state-card-image {
+    height: 250px;
+  }
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+  .states-hero {
+    padding: 145px 0 75px;
+  }
+
+  .states-hero h1 {
+    letter-spacing: -1.8px;
+  }
+
+  .states-section {
+    padding: 60px 0 75px;
+  }
+
+  .states-section-header {
+    align-items: flex-start;
+
+    flex-direction: column;
+  }
+
+  .states-count {
+    width: 100%;
+
+    justify-content: center;
+  }
+
+  .states-search-wrapper {
+    align-items: stretch;
+
+    flex-direction: column;
+  }
+
+  .states-search {
+    width: 100%;
+  }
+
+  .states-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .state-card-image {
+    height: 250px;
+  }
+}
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 420px) {
+  .states-hero {
+    padding: 130px 0 65px;
+  }
+
+  .states-hero h1 {
+    font-size: 2.7rem;
+  }
+
+  .state-card-image {
+    height: 220px;
+  }
+
+  .state-card-content {
+    padding: 18px;
+  }
+}

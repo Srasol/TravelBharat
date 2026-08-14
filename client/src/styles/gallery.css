@@ -1,0 +1,247 @@
+.gallery-page {
+  min-height: 100vh;
+  background: #f8fafc;
+}
+
+.gallery-hero {
+  padding: 165px 0 95px;
+  color: #ffffff;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(7, 25, 46, 0.95),
+      rgba(10, 65, 82, 0.78)
+    ),
+    url("https://images.unsplash.com/photo-1524492412937-b28074a5d7da")
+      center/cover no-repeat;
+}
+
+.gallery-hero span {
+  color: #ffad5c;
+  font-size: 0.8rem;
+  font-weight: 850;
+  letter-spacing: 1.5px;
+}
+
+.gallery-hero h1 {
+  max-width: 850px;
+  margin: 12px 0 18px;
+  font-size: clamp(2.8rem, 6vw, 5.3rem);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -3px;
+}
+
+.gallery-hero p {
+  max-width: 650px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.8;
+}
+
+.gallery-section {
+  padding: 85px 0;
+}
+
+.gallery-toolbar {
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.gallery-search {
+  width: min(100%, 520px);
+  min-height: 50px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  border: 1px solid #dce4ed;
+  border-radius: 15px;
+  color: #f47d22;
+  background: #ffffff;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+}
+
+.gallery-search input {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+}
+
+.gallery-toolbar > span {
+  color: #64748b;
+  font-weight: 750;
+}
+
+.gallery-grid {
+  columns: 3 300px;
+  column-gap: 20px;
+}
+
+.gallery-card {
+  position: relative;
+  margin-bottom: 20px;
+  overflow: hidden;
+  break-inside: avoid;
+  border-radius: 20px;
+  cursor: pointer;
+  background: #e2e8f0;
+  box-shadow: 0 15px 38px rgba(15, 23, 42, 0.08);
+}
+
+.gallery-card img {
+  width: 100%;
+  display: block;
+  transition: 0.4s ease;
+}
+
+.gallery-card:hover img {
+  transform: scale(1.06);
+}
+
+.gallery-overlay {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: 50px 20px 20px;
+  color: #ffffff;
+  background: linear-gradient(
+    to top,
+    rgba(4, 15, 29, 0.92),
+    transparent
+  );
+}
+
+.gallery-overlay span {
+  color: #ffad5c;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.gallery-overlay h3 {
+  margin: 6px 0 4px;
+  font-weight: 850;
+}
+
+.gallery-overlay p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.85rem;
+}
+
+.gallery-empty {
+  min-height: 300px;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  text-align: center;
+  color: #64748b;
+}
+
+.gallery-empty h3 {
+  margin: 10px 0 5px;
+  color: #10233f;
+}
+
+.gallery-spinner {
+  width: 42px;
+  height: 42px;
+  margin-bottom: 12px;
+  border: 4px solid #e2e8f0;
+  border-top-color: #f47d22;
+  border-radius: 50%;
+  animation: gallerySpin 0.8s linear infinite;
+}
+
+@keyframes gallerySpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.gallery-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  padding: 30px;
+  display: grid;
+  place-items: center;
+  background: rgba(2, 10, 20, 0.88);
+  backdrop-filter: blur(7px);
+}
+
+.gallery-lightbox > button {
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  border: none;
+  border-radius: 50%;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.12);
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.gallery-lightbox-content {
+  width: min(100%, 1050px);
+  overflow: hidden;
+  border-radius: 22px;
+  background: #ffffff;
+}
+
+.gallery-lightbox-content img {
+  width: 100%;
+  max-height: 70vh;
+  display: block;
+  object-fit: contain;
+  background: #081626;
+}
+
+.gallery-lightbox-content > div {
+  padding: 20px 24px;
+}
+
+.gallery-lightbox-content span {
+  color: #f47d22;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.gallery-lightbox-content h2 {
+  margin: 5px 0;
+  color: #10233f;
+  font-weight: 900;
+}
+
+.gallery-lightbox-content p {
+  margin: 0;
+  color: #64748b;
+}
+
+@media (max-width: 700px) {
+  .gallery-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .gallery-search {
+    width: 100%;
+  }
+
+  .gallery-lightbox {
+    padding: 15px;
+  }
+
+  .gallery-hero h1 {
+    letter-spacing: -1.5px;
+  }
+}

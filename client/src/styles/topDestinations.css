@@ -1,0 +1,51 @@
+.destination-section{
+    padding:100px 0;
+    background:white;
+}
+
+.destination-card{
+    overflow:hidden;
+    border-radius:20px;
+    background:white;
+    box-shadow:0 20px 40px rgba(0,0,0,.08);
+    transition:.4s;
+}
+
+.destination-card:hover{
+    transform:translateY(-10px);
+}
+
+.destination-card img{
+    width:100%;
+    height:260px;
+    object-fit:cover;
+}
+
+.destination-content{
+    padding:25px;
+}
+
+.destination-content h3{
+    font-size:28px;
+    font-weight:700;
+}
+
+.destination-content p{
+    color:#666;
+    display:flex;
+    gap:10px;
+    align-items:center;
+    margin:18px 0;
+}
+
+.destination-content button{
+    border:none;
+    background:#ff9933;
+    color:white;
+    padding:14px 25px;
+    border-radius:10px;
+    display:flex;
+    gap:10px;
+    align-items:center;
+    font-weight:600;
+}

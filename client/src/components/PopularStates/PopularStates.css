@@ -1,0 +1,48 @@
+.popular-states{
+    padding:90px 0;
+    background:#fff;
+}
+
+.states-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:30px;
+}
+
+.state-card{
+    background:#fff;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+    transition:.3s;
+}
+
+.state-card:hover{
+    transform:translateY(-8px);
+}
+
+.state-card img{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+}
+
+.state-content{
+    padding:22px;
+}
+
+.state-content h3{
+    margin-bottom:10px;
+    color:#10233f;
+}
+
+.state-content p{
+    color:#666;
+    margin-bottom:18px;
+}
+
+.state-content a{
+    color:#ff9933;
+    text-decoration:none;
+    font-weight:bold;
+}

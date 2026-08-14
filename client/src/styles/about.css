@@ -1,0 +1,631 @@
+/* =========================================================
+   TRAVELBHARAT ABOUT PAGE
+========================================================= */
+
+.about-page {
+  min-height: 100vh;
+  background: #f8fafc;
+}
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.about-hero {
+  position: relative;
+
+  padding: 175px 0 110px;
+
+  overflow: hidden;
+
+  color: #ffffff;
+
+  background:
+    radial-gradient(
+      circle at 80% 25%,
+      rgba(255, 153, 51, 0.25),
+      transparent 28%
+    ),
+    linear-gradient(
+      135deg,
+      #071a2e 0%,
+      #0b3449 55%,
+      #126071 100%
+    );
+}
+
+.about-hero::after {
+  content: "";
+
+  position: absolute;
+
+  width: 480px;
+  height: 480px;
+
+  right: -160px;
+  bottom: -280px;
+
+  border: 80px solid rgba(255, 255, 255, 0.04);
+
+  border-radius: 50%;
+}
+
+.about-hero-content {
+  position: relative;
+
+  z-index: 2;
+}
+
+.about-hero span {
+  display: inline-block;
+
+  margin-bottom: 12px;
+
+  color: #ffad5c;
+
+  font-size: 0.78rem;
+  font-weight: 850;
+
+  letter-spacing: 1.7px;
+}
+
+.about-hero h1 {
+  max-width: 900px;
+
+  margin: 0 0 20px;
+
+  color: #ffffff;
+
+  font-size: clamp(3.2rem, 6vw, 5.7rem);
+  font-weight: 900;
+
+  line-height: 1.02;
+
+  letter-spacing: -3px;
+}
+
+.about-hero p {
+  max-width: 700px;
+
+  margin: 0;
+
+  color: rgba(255, 255, 255, 0.76);
+
+  font-size: 1.05rem;
+
+  line-height: 1.85;
+}
+
+/* =========================================================
+   INTRODUCTION
+========================================================= */
+
+.about-introduction {
+  padding: 90px 0;
+}
+
+.about-intro-grid {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1.3fr)
+    minmax(320px, 0.7fr);
+
+  gap: 35px;
+
+  align-items: center;
+}
+
+.about-intro-content > span,
+.about-section-heading > span,
+.about-tourism-card > div:last-child > span,
+.about-final > .container > span {
+  display: inline-block;
+
+  margin-bottom: 8px;
+
+  color: #f47d22;
+
+  font-size: 0.75rem;
+  font-weight: 850;
+
+  letter-spacing: 1.5px;
+
+  text-transform: uppercase;
+}
+
+.about-intro-content h2 {
+  max-width: 700px;
+
+  margin: 0 0 22px;
+
+  color: #10233f;
+
+  font-size: clamp(2.2rem, 4vw, 3.4rem);
+  font-weight: 900;
+
+  line-height: 1.12;
+
+  letter-spacing: -1.5px;
+}
+
+.about-intro-content p {
+  margin: 0 0 16px;
+
+  color: #64748b;
+
+  line-height: 1.85;
+}
+
+/* =========================================================
+   HIGHLIGHT CARD
+========================================================= */
+
+.about-highlight-card {
+  padding: 38px;
+
+  border-radius: 25px;
+
+  color: #ffffff;
+
+  background:
+    linear-gradient(
+      145deg,
+      #10233f,
+      #0c4051
+    );
+
+  box-shadow:
+    0 25px 60px rgba(15, 35, 63, 0.18);
+}
+
+.about-highlight-icon {
+  width: 68px;
+  height: 68px;
+
+  margin-bottom: 28px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 20px;
+
+  color: #ffffff;
+
+  background:
+    linear-gradient(
+      135deg,
+      #ff9933,
+      #f36c21
+    );
+
+  font-size: 1.7rem;
+}
+
+.about-highlight-card > span {
+  color: #ffad5c;
+
+  font-size: 0.7rem;
+  font-weight: 850;
+
+  letter-spacing: 1.4px;
+}
+
+.about-highlight-card h3 {
+  margin: 9px 0 14px;
+
+  color: #ffffff;
+
+  font-size: 1.8rem;
+  font-weight: 900;
+
+  line-height: 1.2;
+}
+
+.about-highlight-card p {
+  margin: 0;
+
+  color: rgba(255, 255, 255, 0.7);
+
+  line-height: 1.8;
+}
+
+.about-highlight-line {
+  height: 1px;
+
+  margin: 27px 0 20px;
+
+  background:
+    rgba(255, 255, 255, 0.12);
+}
+
+.about-highlight-card small {
+  color: rgba(255, 255, 255, 0.55);
+
+  font-weight: 600;
+}
+
+/* =========================================================
+   SECTION HEADING
+========================================================= */
+
+.about-section-heading {
+  max-width: 760px;
+
+  margin: 0 auto 45px;
+
+  text-align: center;
+}
+
+.about-section-heading h2 {
+  margin: 0 0 12px;
+
+  color: #10233f;
+
+  font-size: clamp(2.1rem, 4vw, 3.2rem);
+  font-weight: 900;
+
+  line-height: 1.15;
+
+  letter-spacing: -1.3px;
+}
+
+.about-section-heading p {
+  margin: 0;
+
+  color: #64748b;
+
+  line-height: 1.75;
+}
+
+/* =========================================================
+   MISSION
+========================================================= */
+
+.about-mission {
+  padding: 90px 0;
+
+  background: #ffffff;
+}
+
+.about-mission-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 22px;
+}
+
+.about-mission-card {
+  padding: 30px;
+
+  border: 1px solid #e7ecf2;
+  border-radius: 21px;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 14px 35px rgba(15, 23, 42, 0.06);
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.about-mission-card:hover {
+  transform: translateY(-6px);
+
+  box-shadow:
+    0 22px 48px rgba(15, 23, 42, 0.1);
+}
+
+.about-mission-card > span {
+  width: 45px;
+  height: 45px;
+
+  margin-bottom: 23px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 13px;
+
+  color: #ffffff;
+
+  background:
+    linear-gradient(
+      135deg,
+      #ff9933,
+      #f36c21
+    );
+
+  font-size: 0.85rem;
+  font-weight: 900;
+}
+
+.about-mission-card h3 {
+  margin: 0 0 10px;
+
+  color: #10233f;
+
+  font-size: 1.25rem;
+  font-weight: 850;
+}
+
+.about-mission-card p {
+  margin: 0;
+
+  color: #64748b;
+
+  line-height: 1.75;
+}
+
+/* =========================================================
+   FEATURES
+========================================================= */
+
+.about-features {
+  padding: 90px 0;
+
+  background: #f8fafc;
+}
+
+.about-features-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+
+  gap: 20px;
+}
+
+.about-feature-card {
+  padding: 27px 23px;
+
+  border: 1px solid #e7ecf2;
+  border-radius: 20px;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 12px 30px rgba(15, 23, 42, 0.05);
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.about-feature-card:hover {
+  transform: translateY(-6px);
+
+  box-shadow:
+    0 20px 44px rgba(15, 23, 42, 0.1);
+}
+
+.about-feature-icon {
+  width: 58px;
+  height: 58px;
+
+  margin-bottom: 20px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 17px;
+
+  color: #ffffff;
+
+  background:
+    linear-gradient(
+      135deg,
+      #ff9933,
+      #f36c21
+    );
+
+  font-size: 1.3rem;
+}
+
+.about-feature-card h3 {
+  margin: 0 0 9px;
+
+  color: #10233f;
+
+  font-size: 1.08rem;
+  font-weight: 850;
+}
+
+.about-feature-card p {
+  margin: 0;
+
+  color: #64748b;
+
+  font-size: 0.88rem;
+
+  line-height: 1.7;
+}
+
+/* =========================================================
+   RESPONSIBLE TOURISM
+========================================================= */
+
+.about-tourism {
+  padding: 50px 0 90px;
+
+  background: #f8fafc;
+}
+
+.about-tourism-card {
+  padding: 40px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 28px;
+
+  border-radius: 24px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #ecfdf5,
+      #f0fdf4
+    );
+
+  border: 1px solid #bbf7d0;
+}
+
+.about-tourism-icon {
+  width: 75px;
+  height: 75px;
+
+  flex-shrink: 0;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 21px;
+
+  color: #ffffff;
+
+  background:
+    linear-gradient(
+      135deg,
+      #22c55e,
+      #15803d
+    );
+
+  font-size: 1.7rem;
+}
+
+.about-tourism-card h2 {
+  margin: 0 0 9px;
+
+  color: #153a2a;
+
+  font-size: 1.65rem;
+  font-weight: 900;
+}
+
+.about-tourism-card p {
+  margin: 0;
+
+  color: #527365;
+
+  line-height: 1.75;
+}
+
+/* =========================================================
+   FINAL SECTION
+========================================================= */
+
+.about-final {
+  padding: 100px 0;
+
+  color: #ffffff;
+
+  text-align: center;
+
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(255, 153, 51, 0.2),
+      transparent 35%
+    ),
+    #081a2e;
+}
+
+.about-final svg {
+  margin-bottom: 18px;
+
+  color: #ff9933;
+
+  font-size: 2.6rem;
+}
+
+.about-final h2 {
+  margin: 5px 0 15px;
+
+  color: #ffffff;
+
+  font-size: clamp(2.3rem, 4vw, 3.7rem);
+  font-weight: 900;
+
+  line-height: 1.12;
+
+  letter-spacing: -1.5px;
+}
+
+.about-final p {
+  max-width: 650px;
+
+  margin: 0 auto;
+
+  color: rgba(255, 255, 255, 0.7);
+
+  line-height: 1.8;
+}
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1000px) {
+  .about-intro-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-mission-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .about-features-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 650px) {
+  .about-hero {
+    padding: 145px 0 80px;
+  }
+
+  .about-hero h1 {
+    letter-spacing: -1.7px;
+  }
+
+  .about-introduction,
+  .about-mission,
+  .about-features {
+    padding: 65px 0;
+  }
+
+  .about-highlight-card {
+    padding: 28px 22px;
+  }
+
+  .about-mission-grid,
+  .about-features-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-tourism {
+    padding: 30px 0 65px;
+  }
+
+  .about-tourism-card {
+    padding: 28px 22px;
+
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .about-final {
+    padding: 75px 0;
+  }
+}
