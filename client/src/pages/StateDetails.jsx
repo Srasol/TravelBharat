@@ -2,11 +2,15 @@ import { useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import {
   FaArrowLeft,
+  FaArrowRight,
   FaCalendarAlt,
+  FaCompass,
   FaMapMarkerAlt,
 } from "react-icons/fa";
 
 import API from "../services/api";
+import { getImageUrl } from "../utils/imageUrl";
+
 import "../styles/stateDetails.css";
 
 function StateDetails() {
@@ -27,17 +31,22 @@ function StateDetails() {
       setLoading(true);
       setError("");
 
-      const [statesResponse, placesResponse] = await Promise.all([
-        API.get("/states"),
-        API.get("/places"),
-      ]);
+      const [statesResponse, placesResponse] =
+        await Promise.all([
+          API.get("/states"),
+          API.get("/places"),
+        ]);
 
-      const allStates = statesResponse.data.states || [];
-      const allPlaces = placesResponse.data.places || [];
+      const allStates =
+        statesResponse.data.states || [];
 
-      const selectedState = allStates.find(
-        (item) => item._id === id
-      );
+      const allPlaces =
+        placesResponse.data.places || [];
+
+      const selectedState =
+        allStates.find(
+          (item) => item._id === id
+        );
 
       if (!selectedState) {
         setError("State not found.");
@@ -46,13 +55,18 @@ function StateDetails() {
 
       setState(selectedState);
 
-      const statePlaces = allPlaces.filter(
-        (place) => place.state?._id === id
-      );
+      const statePlaces =
+        allPlaces.filter(
+          (place) =>
+            place.state?._id === id
+        );
 
       setPlaces(statePlaces);
     } catch (requestError) {
-      console.error("State details error:", requestError);
+      console.error(
+        "State details error:",
+        requestError
+      );
 
       setError(
         requestError.response?.data?.message ||
@@ -65,11 +79,15 @@ function StateDetails() {
 
   const heroImage = useMemo(() => {
     if (state?.image) {
-      return `http://localhost:5000/${state.image}`;
+      return getImageUrl(state.image);
     }
 
-    if (places[0]?.images?.length > 0) {
-      return `http://localhost:5000/${places[0].images[0]}`;
+    if (
+      places[0]?.images?.length > 0
+    ) {
+      return getImageUrl(
+        places[0].images[0]
+      );
     }
 
     return "";
@@ -77,10 +95,19 @@ function StateDetails() {
 
   if (loading) {
     return (
-      <main className="state-details-page">
-        <div className="state-details-message">
-          <div className="state-details-loader"></div>
-          <h3>Loading state...</h3>
+      <main className="tb-state-details-page">
+        <div className="tb-state-details-message">
+
+          <div className="tb-state-details-loader"></div>
+
+          <h3>
+            Loading state...
+          </h3>
+
+          <p>
+            Preparing your TravelBharat journey.
+          </p>
+
         </div>
       </main>
     );
@@ -88,25 +115,33 @@ function StateDetails() {
 
   if (error || !state) {
     return (
-      <main className="state-details-page">
-        <div className="state-details-message">
-          <h3>Unable to open state</h3>
-          <p>{error || "State not found."}</p>
+      <main className="tb-state-details-page">
+        <div className="tb-state-details-message">
+
+          <h3>
+            Unable to open state
+          </h3>
+
+          <p>
+            {error || "State not found."}
+          </p>
 
           <Link to="/states">
+            <FaArrowLeft />
             Back to States
           </Link>
+
         </div>
       </main>
     );
   }
 
   return (
-    <main className="state-details-page">
+    <main className="tb-state-details-page">
 
       {/* HERO */}
 
-      <section className="state-details-hero">
+      <section className="tb-state-details-hero">
 
         {heroImage ? (
           <img
@@ -114,97 +149,181 @@ function StateDetails() {
             alt={state.name}
           />
         ) : (
-          <div className="state-details-no-image">
+          <div className="tb-state-details-no-image">
             <FaMapMarkerAlt />
           </div>
         )}
 
-        <div className="state-details-overlay"></div>
+        <div className="tb-state-details-overlay"></div>
 
-        <div className="container state-details-hero-content">
-          <Link to="/states">
-            <FaArrowLeft />
-            Back to States
-          </Link>
+        <div className="container tb-state-details-hero-content">
 
-          <span>EXPLORE INDIA</span>
+          <div className="tb-state-details-main">
 
-          <h1>{state.name}</h1>
+            <Link
+              to="/states"
+              className="tb-state-back"
+            >
+              <FaArrowLeft />
+              Back to States
+            </Link>
 
-          <p>
-            <FaMapMarkerAlt />
-            Capital: {state.capital}
-          </p>
+            <span className="tb-state-kicker">
+              <FaCompass />
+              EXPLORE INDIA
+            </span>
+
+            <h1>
+              {state.name}
+            </h1>
+
+            <p>
+              <FaMapMarkerAlt />
+              Capital: {state.capital}
+            </p>
+
+          </div>
+
+          <aside className="tb-state-hero-card">
+
+            <span>
+              STATE OVERVIEW
+            </span>
+
+            <strong>
+              {places.length}
+            </strong>
+
+            <p>
+              Tourist destination
+              {places.length === 1 ? "" : "s"}
+              {" "}available to explore.
+            </p>
+
+            <div>
+              <small>
+                Capital
+              </small>
+
+              <b>
+                {state.capital}
+              </b>
+            </div>
+
+          </aside>
+
         </div>
+
       </section>
 
       {/* ABOUT */}
 
-      <section className="state-about-section">
+      <section className="tb-state-about-section">
+
         <div className="container">
 
-          <div className="state-about-grid">
+          <div className="tb-state-about-layout">
 
-            <article className="state-about-card">
-              <span>ABOUT THE STATE</span>
+            <div className="tb-state-about-copy">
+
+              <span>
+                ABOUT THE STATE
+              </span>
 
               <h2>
-                Discover {state.name}
+                Discover
+                <br />
+                {state.name}
               </h2>
 
+            </div>
+
+            <article className="tb-state-about-card">
+
               <p>
-                {state.description}
+                {state.description ||
+                  `Explore the culture, heritage and beautiful destinations across ${state.name}.`}
               </p>
+
+              <div className="tb-state-about-meta">
+
+                <div>
+                  <small>
+                    Capital
+                  </small>
+
+                  <strong>
+                    {state.capital}
+                  </strong>
+                </div>
+
+                <div>
+                  <small>
+                    Tourist Places
+                  </small>
+
+                  <strong>
+                    {places.length}
+                  </strong>
+                </div>
+
+                <div>
+                  <small>
+                    Travel With
+                  </small>
+
+                  <strong>
+                    TravelBharat
+                  </strong>
+                </div>
+
+              </div>
+
             </article>
-
-            <aside className="state-summary-card">
-              <div>
-                <span>Capital</span>
-                <strong>{state.capital}</strong>
-              </div>
-
-              <div>
-                <span>Tourist Places</span>
-                <strong>{places.length}</strong>
-              </div>
-
-              <div>
-                <span>Explore</span>
-                <strong>TravelBharat</strong>
-              </div>
-            </aside>
 
           </div>
 
         </div>
+
       </section>
 
-      {/* TOURIST PLACES */}
+      {/* DESTINATIONS */}
 
-      <section className="state-places-section">
+      <section className="tb-state-places-section">
+
         <div className="container">
 
-          <div className="state-places-header">
+          <div className="tb-state-places-header">
+
             <div>
-              <span>TOP DESTINATIONS</span>
+              <span>
+                TOP DESTINATIONS
+              </span>
 
               <h2>
-                Tourist Places in {state.name}
+                Explore places in{" "}
+                {state.name}
               </h2>
 
               <p>
-                Explore beautiful destinations across {state.name}.
+                Discover unforgettable places,
+                local experiences and travel
+                stories across {state.name}.
               </p>
             </div>
 
-            <span className="state-place-count">
+            <span className="tb-state-place-count">
               {places.length} place
-              {places.length === 1 ? "" : "s"}
+              {places.length === 1
+                ? ""
+                : "s"}
             </span>
+
           </div>
 
           {places.length === 0 ? (
-            <div className="state-no-places">
+            <div className="tb-state-no-places">
+
               <FaMapMarkerAlt />
 
               <h3>
@@ -212,70 +331,99 @@ function StateDetails() {
               </h3>
 
               <p>
-                Tourist destinations added by the admin
-                will appear here.
+                Tourist destinations added by the
+                admin will appear here.
               </p>
+
             </div>
           ) : (
-            <div className="state-places-grid">
+            <div className="tb-state-places-grid">
 
-              {places.map((place) => (
+              {places.map((place, index) => (
                 <Link
                   to={`/places/${place._id}`}
-                  className="state-place-card"
+                  className={`tb-state-place-card ${
+                    index === 0
+                      ? "tb-state-place-featured"
+                      : ""
+                  }`}
                   key={place._id}
                 >
 
-                  <div className="state-place-image">
+                  <div className="tb-state-place-image">
 
                     {place.images?.length > 0 ? (
                       <img
-                        src={`http://localhost:5000/${place.images[0]}`}
+                        src={getImageUrl(
+                          place.images[0]
+                        )}
                         alt={place.name}
                       />
                     ) : (
-                      <div className="state-place-no-image">
+                      <div className="tb-state-place-no-image">
                         <FaMapMarkerAlt />
                       </div>
                     )}
 
-                    <span>
+                    <div className="tb-state-place-shade"></div>
+
+                    <span className="tb-state-place-category">
                       {place.category?.name ||
                         "Destination"}
                     </span>
 
+                    <span className="tb-state-place-number">
+                      {String(index + 1).padStart(
+                        2,
+                        "0"
+                      )}
+                    </span>
+
+                    <div className="tb-state-place-image-content">
+
+                      <p>
+                        <FaMapMarkerAlt />
+
+                        {place.city?.name ||
+                          "Unknown city"}
+                      </p>
+
+                      <h3>
+                        {place.name}
+                      </h3>
+
+                    </div>
+
                   </div>
 
-                  <div className="state-place-content">
+                  <div className="tb-state-place-content">
 
-                    <h3>{place.name}</h3>
-
-                    <p className="state-place-location">
-                      <FaMapMarkerAlt />
-
-                      {place.city?.name ||
-                        "Unknown city"}
+                    <p className="tb-state-place-description">
+                      {place.description ||
+                        "Discover this beautiful destination with TravelBharat."}
                     </p>
 
-                    <p className="state-place-description">
-                      {place.description}
-                    </p>
+                    <div className="tb-state-place-meta">
 
-                    <div className="state-place-meta">
                       <span>
                         <FaCalendarAlt />
 
                         {place.bestTime ||
                           "Any time"}
                       </span>
+
                     </div>
 
-                    <div className="state-place-footer">
+                    <div className="tb-state-place-footer">
+
                       <span>
                         Explore Destination
                       </span>
 
-                      <strong>→</strong>
+                      <div>
+                        <FaArrowRight />
+                      </div>
+
                     </div>
 
                   </div>
@@ -287,6 +435,7 @@ function StateDetails() {
           )}
 
         </div>
+
       </section>
 
     </main>

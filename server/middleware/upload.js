@@ -1,39 +1,44 @@
 const multer = require("multer");
 const path = require("path");
 
-const storage = multer.diskStorage({
-  destination: (req, file, callback) => {
-    callback(null, "uploads/");
-  },
+/*
+  Keep uploaded images in memory.
 
-  filename: (req, file, callback) => {
-    const uniqueName =
-      Date.now() +
-      "-" +
-      Math.round(Math.random() * 1000000) +
-      path.extname(file.originalname);
-
-    callback(null, uniqueName);
-  },
-});
+  The controller will send the file buffer
+  directly to Cloudinary.
+*/
+const storage = multer.memoryStorage();
 
 const fileFilter = (req, file, callback) => {
-  const allowedTypes = /jpeg|jpg|png|webp/;
-  const extension = allowedTypes.test(
+  const allowedExtensions = /jpeg|jpg|png|webp/;
+
+  const extensionIsValid = allowedExtensions.test(
     path.extname(file.originalname).toLowerCase()
   );
-  const mimeType = allowedTypes.test(file.mimetype);
 
-  if (extension && mimeType) {
+  const mimeTypeIsValid = [
+    "image/jpeg",
+    "image/jpg",
+    "image/png",
+    "image/webp",
+  ].includes(file.mimetype);
+
+  if (extensionIsValid && mimeTypeIsValid) {
     callback(null, true);
   } else {
-    callback(new Error("Only JPG, JPEG, PNG and WEBP images are allowed"));
+    callback(
+      new Error(
+        "Only JPG, JPEG, PNG and WEBP images are allowed"
+      ),
+      false
+    );
   }
 };
 
 const upload = multer({
   storage,
   fileFilter,
+
   limits: {
     fileSize: 5 * 1024 * 1024,
   },

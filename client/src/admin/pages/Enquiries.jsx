@@ -1,10 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
 import {
+  FaCheckCircle,
   FaEnvelope,
   FaEye,
   FaSearch,
   FaTimes,
   FaTrash,
+  FaUser,
 } from "react-icons/fa";
 
 import API from "../../services/api";
@@ -14,16 +16,28 @@ import "../styles/admin.css";
 
 function Enquiries() {
   const [enquiries, setEnquiries] = useState([]);
-  const [selectedEnquiry, setSelectedEnquiry] = useState(null);
+  const [selectedEnquiry, setSelectedEnquiry] =
+    useState(null);
 
   const [search, setSearch] = useState("");
-  const [statusFilter, setStatusFilter] = useState("");
+  const [statusFilter, setStatusFilter] =
+    useState("");
 
-  const [loading, setLoading] = useState(true);
-  const [updating, setUpdating] = useState("");
+  const [loading, setLoading] =
+    useState(true);
 
-  const [message, setMessage] = useState("");
-  const [error, setError] = useState("");
+  const [updating, setUpdating] =
+    useState("");
+
+  const [message, setMessage] =
+    useState("");
+
+  const [error, setError] =
+    useState("");
+
+  /* ======================================================
+     LOAD ENQUIRIES
+  ====================================================== */
 
   useEffect(() => {
     loadEnquiries();
@@ -34,10 +48,18 @@ function Enquiries() {
       setLoading(true);
       setError("");
 
-      const response = await API.get("/enquiries");
+      const response =
+        await API.get("/enquiries");
 
-      setEnquiries(response.data.enquiries || []);
+      setEnquiries(
+        response.data.enquiries || []
+      );
     } catch (requestError) {
+      console.error(
+        "Load enquiries error:",
+        requestError
+      );
+
       setError(
         requestError.response?.data?.message ||
           "Unable to load enquiries."
@@ -47,59 +69,131 @@ function Enquiries() {
     }
   };
 
-  const filteredEnquiries = useMemo(() => {
-    const keyword = search.trim().toLowerCase();
+  /* ======================================================
+     FILTER ENQUIRIES
+  ====================================================== */
 
-    return enquiries.filter((enquiry) => {
-      const matchesSearch =
-        !keyword ||
-        enquiry.name?.toLowerCase().includes(keyword) ||
-        enquiry.email?.toLowerCase().includes(keyword) ||
-        enquiry.subject?.toLowerCase().includes(keyword);
+  const filteredEnquiries =
+    useMemo(() => {
+      const keyword = search
+        .trim()
+        .toLowerCase();
 
-      const matchesStatus =
-        !statusFilter ||
-        enquiry.status === statusFilter;
+      return enquiries.filter(
+        (enquiry) => {
+          const matchesSearch =
+            !keyword ||
+            enquiry.name
+              ?.toLowerCase()
+              .includes(keyword) ||
+            enquiry.email
+              ?.toLowerCase()
+              .includes(keyword) ||
+            enquiry.subject
+              ?.toLowerCase()
+              .includes(keyword);
 
-      return matchesSearch && matchesStatus;
-    });
-  }, [enquiries, search, statusFilter]);
+          const matchesStatus =
+            !statusFilter ||
+            enquiry.status ===
+              statusFilter;
 
-  const updateStatus = async (enquiry, newStatus) => {
+          return (
+            matchesSearch &&
+            matchesStatus
+          );
+        }
+      );
+    }, [
+      enquiries,
+      search,
+      statusFilter,
+    ]);
+
+  /* ======================================================
+     COUNTS
+  ====================================================== */
+
+  const newCount = useMemo(() => {
+    return enquiries.filter(
+      (item) => item.status === "New"
+    ).length;
+  }, [enquiries]);
+
+  const readCount = useMemo(() => {
+    return enquiries.filter(
+      (item) => item.status === "Read"
+    ).length;
+  }, [enquiries]);
+
+  const resolvedCount = useMemo(() => {
+    return enquiries.filter(
+      (item) =>
+        item.status === "Resolved"
+    ).length;
+  }, [enquiries]);
+
+  /* ======================================================
+     UPDATE STATUS
+  ====================================================== */
+
+  const updateStatus = async (
+    enquiry,
+    newStatus
+  ) => {
     try {
       setUpdating(enquiry._id);
+
       setMessage("");
       setError("");
 
-      const response = await API.put(
-        `/enquiries/${enquiry._id}/status`,
-        {
-          status: newStatus,
-        }
-      );
+      const response =
+        await API.put(
+          `/enquiries/${enquiry._id}/status`,
+          {
+            status: newStatus,
+          }
+        );
 
       setEnquiries((previous) =>
         previous.map((item) =>
           item._id === enquiry._id
             ? {
                 ...item,
-                status: response.data.enquiry.status,
+                status:
+                  response.data
+                    .enquiry.status,
               }
             : item
         )
       );
 
-      if (selectedEnquiry?._id === enquiry._id) {
-        setSelectedEnquiry((previous) => ({
-          ...previous,
-          status: response.data.enquiry.status,
-        }));
+      if (
+        selectedEnquiry?._id ===
+        enquiry._id
+      ) {
+        setSelectedEnquiry(
+          (previous) => ({
+            ...previous,
+            status:
+              response.data
+                .enquiry.status,
+          })
+        );
       }
 
-      setMessage("Enquiry status updated successfully.");
+      setMessage(
+        "Enquiry status updated successfully."
+      );
     } catch (requestError) {
+      console.error(
+        "Update enquiry error:",
+        requestError
+      );
+
       setError(
-        requestError.response?.data?.message ||
+        requestError.response?.data
+          ?.message ||
           "Unable to update enquiry status."
       );
     } finally {
@@ -107,10 +201,17 @@ function Enquiries() {
     }
   };
 
-  const deleteEnquiry = async (enquiry) => {
-    const confirmed = window.confirm(
-      `Delete enquiry from ${enquiry.name}?`
-    );
+  /* ======================================================
+     DELETE
+  ====================================================== */
+
+  const deleteEnquiry = async (
+    enquiry
+  ) => {
+    const confirmed =
+      window.confirm(
+        `Delete enquiry from ${enquiry.name}?`
+      );
 
     if (!confirmed) {
       return;
@@ -120,17 +221,23 @@ function Enquiries() {
       setMessage("");
       setError("");
 
-      const response = await API.delete(
-        `/enquiries/${enquiry._id}`
-      );
+      const response =
+        await API.delete(
+          `/enquiries/${enquiry._id}`
+        );
 
       setEnquiries((previous) =>
         previous.filter(
-          (item) => item._id !== enquiry._id
+          (item) =>
+            item._id !==
+            enquiry._id
         )
       );
 
-      if (selectedEnquiry?._id === enquiry._id) {
+      if (
+        selectedEnquiry?._id ===
+        enquiry._id
+      ) {
         setSelectedEnquiry(null);
       }
 
@@ -139,50 +246,208 @@ function Enquiries() {
           "Enquiry deleted successfully."
       );
     } catch (requestError) {
+      console.error(
+        "Delete enquiry error:",
+        requestError
+      );
+
       setError(
-        requestError.response?.data?.message ||
+        requestError.response?.data
+          ?.message ||
           "Unable to delete enquiry."
       );
     }
   };
 
-  const openEnquiry = async (enquiry) => {
+  /* ======================================================
+     OPEN ENQUIRY
+  ====================================================== */
+
+  const openEnquiry = async (
+    enquiry
+  ) => {
     setSelectedEnquiry(enquiry);
 
     if (enquiry.status === "New") {
-      await updateStatus(enquiry, "Read");
+      await updateStatus(
+        enquiry,
+        "Read"
+      );
     }
   };
+
+  /* ======================================================
+     DATE
+  ====================================================== */
 
   const formatDate = (date) => {
     if (!date) {
       return "Not available";
     }
 
-    return new Date(date).toLocaleDateString("en-IN", {
-      day: "2-digit",
-      month: "short",
-      year: "numeric",
-    });
+    return new Date(
+      date
+    ).toLocaleDateString(
+      "en-IN",
+      {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      }
+    );
+  };
+
+  /* ======================================================
+     CLEAR FILTERS
+  ====================================================== */
+
+  const clearFilters = () => {
+    setSearch("");
+    setStatusFilter("");
   };
 
   return (
     <main className="admin-management-page">
+
       <Sidebar />
 
       <section className="admin-management-content">
-        <header className="admin-page-header">
-          <div>
-            <span>Visitor Communication</span>
 
-            <h1>Enquiries</h1>
+        {/* HEADER */}
+
+        <header className="admin-page-header">
+
+          <div>
+
+            <span>
+              Visitor Communication
+            </span>
+
+            <h1>
+              Enquiries
+            </h1>
 
             <p>
-              View and manage messages submitted through the
+              View and manage messages
+              submitted through the
               TravelBharat contact page.
             </p>
+
           </div>
+
         </header>
+
+        {/* SUMMARY */}
+
+        <section
+          style={{
+            display: "grid",
+            gridTemplateColumns:
+              "repeat(4, minmax(0, 1fr))",
+            gap: "12px",
+            marginBottom: "20px",
+          }}
+        >
+
+          <div className="admin-dashboard-stat-card">
+            <div className="admin-dashboard-stat-top">
+              <span>
+                TOTAL
+              </span>
+
+              <div className="admin-dashboard-stat-icon blue">
+                <FaEnvelope />
+              </div>
+            </div>
+
+            <strong>
+              {enquiries.length}
+            </strong>
+
+            <h3>
+              All Enquiries
+            </h3>
+
+            <p>
+              Total visitor messages
+            </p>
+          </div>
+
+          <div className="admin-dashboard-stat-card">
+            <div className="admin-dashboard-stat-top">
+              <span>
+                NEW
+              </span>
+
+              <div className="admin-dashboard-stat-icon orange">
+                <FaEnvelope />
+              </div>
+            </div>
+
+            <strong>
+              {newCount}
+            </strong>
+
+            <h3>
+              New
+            </h3>
+
+            <p>
+              Waiting to be reviewed
+            </p>
+          </div>
+
+          <div className="admin-dashboard-stat-card">
+            <div className="admin-dashboard-stat-top">
+              <span>
+                READ
+              </span>
+
+              <div className="admin-dashboard-stat-icon purple">
+                <FaEye />
+              </div>
+            </div>
+
+            <strong>
+              {readCount}
+            </strong>
+
+            <h3>
+              Read
+            </h3>
+
+            <p>
+              Already opened
+            </p>
+          </div>
+
+          <div className="admin-dashboard-stat-card">
+            <div className="admin-dashboard-stat-top">
+              <span>
+                DONE
+              </span>
+
+              <div className="admin-dashboard-stat-icon green">
+                <FaCheckCircle />
+              </div>
+            </div>
+
+            <strong>
+              {resolvedCount}
+            </strong>
+
+            <h3>
+              Resolved
+            </h3>
+
+            <p>
+              Completed enquiries
+            </p>
+          </div>
+
+        </section>
+
+        {/* SUCCESS */}
 
         {message && (
           <div className="admin-success-message">
@@ -190,15 +455,22 @@ function Enquiries() {
           </div>
         )}
 
+        {/* ERROR */}
+
         {error && (
           <div className="admin-error-message">
             {error}
           </div>
         )}
 
+        {/* TABLE */}
+
         <section className="admin-table-panel">
+
           <div className="admin-enquiry-toolbar">
+
             <div className="admin-search-box">
+
               <FaSearch />
 
               <input
@@ -206,179 +478,428 @@ function Enquiries() {
                 placeholder="Search name, email or subject..."
                 value={search}
                 onChange={(event) =>
-                  setSearch(event.target.value)
+                  setSearch(
+                    event.target.value
+                  )
                 }
               />
+
             </div>
 
             <select
               value={statusFilter}
               onChange={(event) =>
-                setStatusFilter(event.target.value)
+                setStatusFilter(
+                  event.target.value
+                )
               }
             >
-              <option value="">All Statuses</option>
-              <option value="New">New</option>
-              <option value="Read">Read</option>
+              <option value="">
+                All Statuses
+              </option>
+
+              <option value="New">
+                New
+              </option>
+
+              <option value="Read">
+                Read
+              </option>
+
               <option value="Resolved">
                 Resolved
               </option>
             </select>
 
-            <span className="admin-result-count">
-              {filteredEnquiries.length} enquir
-              {filteredEnquiries.length === 1
-                ? "y"
-                : "ies"}
-            </span>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent:
+                  "flex-end",
+                gap: "8px",
+              }}
+            >
+              <span className="admin-result-count">
+                {filteredEnquiries.length}{" "}
+                {filteredEnquiries.length ===
+                1
+                  ? "enquiry"
+                  : "enquiries"}
+              </span>
+
+              {(search ||
+                statusFilter) && (
+                <button
+                  type="button"
+                  className="admin-secondary-button"
+                  onClick={clearFilters}
+                >
+                  Clear
+                </button>
+              )}
+            </div>
+
           </div>
 
           {loading ? (
             <div className="admin-empty-state">
+
               <div className="admin-spinner"></div>
-              <p>Loading enquiries...</p>
-            </div>
-          ) : filteredEnquiries.length === 0 ? (
-            <div className="admin-empty-state">
-              <FaEnvelope size={34} />
-              <h3>No enquiries found</h3>
+
               <p>
-                Messages submitted from the Contact page
-                will appear here.
+                Loading enquiries...
               </p>
+
+            </div>
+          ) : filteredEnquiries.length ===
+            0 ? (
+            <div className="admin-empty-state">
+
+              <FaEnvelope size={34} />
+
+              <h3>
+                No enquiries found
+              </h3>
+
+              <p>
+                Messages submitted from
+                the Contact page will
+                appear here.
+              </p>
+
             </div>
           ) : (
             <div className="admin-table-wrapper">
+
               <table className="admin-data-table">
+
                 <thead>
                   <tr>
-                    <th>Visitor</th>
-                    <th>Email</th>
-                    <th>Subject</th>
-                    <th>Date</th>
-                    <th>Status</th>
-                    <th>Actions</th>
+                    <th>
+                      Visitor
+                    </th>
+
+                    <th>
+                      Email
+                    </th>
+
+                    <th>
+                      Subject
+                    </th>
+
+                    <th>
+                      Date
+                    </th>
+
+                    <th>
+                      Status
+                    </th>
+
+                    <th>
+                      Actions
+                    </th>
                   </tr>
                 </thead>
 
                 <tbody>
-                  {filteredEnquiries.map((enquiry) => (
-                    <tr key={enquiry._id}>
-                      <td>
-                        <strong>{enquiry.name}</strong>
-                      </td>
 
-                      <td>{enquiry.email}</td>
+                  {filteredEnquiries.map(
+                    (enquiry) => (
+                      <tr
+                        key={
+                          enquiry._id
+                        }
+                      >
 
-                      <td>
-                        <p className="admin-description-cell">
-                          {enquiry.subject}
-                        </p>
-                      </td>
+                        {/* VISITOR */}
 
-                      <td>
-                        {formatDate(enquiry.createdAt)}
-                      </td>
+                        <td>
 
-                      <td>
-                        <select
-                          className={`admin-enquiry-status-select status-${enquiry.status?.toLowerCase()}`}
-                          value={enquiry.status}
-                          disabled={
-                            updating === enquiry._id
-                          }
-                          onChange={(event) =>
-                            updateStatus(
-                              enquiry,
-                              event.target.value
-                            )
-                          }
-                        >
-                          <option value="New">
-                            New
-                          </option>
+                          <div
+                            style={{
+                              display:
+                                "flex",
+                              alignItems:
+                                "center",
+                              gap: "9px",
+                              minWidth:
+                                "140px",
+                            }}
+                          >
 
-                          <option value="Read">
-                            Read
-                          </option>
+                            <div className="admin-enquiry-avatar">
+                              {enquiry.name
+                                ?.charAt(0)
+                                .toUpperCase() ||
+                                "?"}
+                            </div>
 
-                          <option value="Resolved">
-                            Resolved
-                          </option>
-                        </select>
-                      </td>
+                            <div>
 
-                      <td>
-                        <div className="admin-table-actions">
-                          <button
-                            className="admin-view-button"
-                            type="button"
-                            title="View enquiry"
-                            onClick={() =>
-                              openEnquiry(enquiry)
+                              <strong>
+                                {enquiry.name}
+                              </strong>
+
+                              <div
+                                style={{
+                                  marginTop:
+                                    "3px",
+                                  color:
+                                    "#94a3b8",
+                                  fontSize:
+                                    "0.52rem",
+                                }}
+                              >
+                                Visitor
+                              </div>
+
+                            </div>
+
+                          </div>
+
+                        </td>
+
+                        {/* EMAIL */}
+
+                        <td>
+                          {enquiry.email}
+                        </td>
+
+                        {/* SUBJECT */}
+
+                        <td>
+
+                          <p className="admin-description-cell">
+                            {enquiry.subject}
+                          </p>
+
+                        </td>
+
+                        {/* DATE */}
+
+                        <td>
+                          {formatDate(
+                            enquiry.createdAt
+                          )}
+                        </td>
+
+                        {/* STATUS */}
+
+                        <td>
+
+                          <select
+                            className={`admin-enquiry-status-select status-${enquiry.status?.toLowerCase()}`}
+                            value={
+                              enquiry.status
+                            }
+                            disabled={
+                              updating ===
+                              enquiry._id
+                            }
+                            onChange={(
+                              event
+                            ) =>
+                              updateStatus(
+                                enquiry,
+                                event
+                                  .target
+                                  .value
+                              )
                             }
                           >
-                            <FaEye />
-                          </button>
 
-                          <button
-                            className="admin-delete-button"
-                            type="button"
-                            title="Delete enquiry"
-                            onClick={() =>
-                              deleteEnquiry(enquiry)
-                            }
-                          >
-                            <FaTrash />
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
+                            <option value="New">
+                              New
+                            </option>
+
+                            <option value="Read">
+                              Read
+                            </option>
+
+                            <option value="Resolved">
+                              Resolved
+                            </option>
+
+                          </select>
+
+                        </td>
+
+                        {/* ACTIONS */}
+
+                        <td>
+
+                          <div className="admin-table-actions">
+
+                            <button
+                              className="admin-view-button"
+                              type="button"
+                              title="View enquiry"
+                              onClick={() =>
+                                openEnquiry(
+                                  enquiry
+                                )
+                              }
+                            >
+                              <FaEye />
+                            </button>
+
+                            <button
+                              className="admin-delete-button"
+                              type="button"
+                              title="Delete enquiry"
+                              onClick={() =>
+                                deleteEnquiry(
+                                  enquiry
+                                )
+                              }
+                            >
+                              <FaTrash />
+                            </button>
+
+                          </div>
+
+                        </td>
+
+                      </tr>
+                    )
+                  )}
+
                 </tbody>
+
               </table>
+
             </div>
           )}
+
         </section>
+
       </section>
+
+      {/* ==================================================
+          ENQUIRY DETAILS MODAL
+      =================================================== */}
 
       {selectedEnquiry && (
         <div className="admin-modal-backdrop">
+
           <section className="admin-form-modal admin-enquiry-modal">
+
             <header className="admin-modal-header">
+
               <div>
-                <span>Visitor Message</span>
-                <h2>{selectedEnquiry.subject}</h2>
+
+                <span>
+                  Visitor Message
+                </span>
+
+                <h2>
+                  {
+                    selectedEnquiry.subject
+                  }
+                </h2>
+
               </div>
 
               <button
                 type="button"
                 onClick={() =>
-                  setSelectedEnquiry(null)
+                  setSelectedEnquiry(
+                    null
+                  )
                 }
                 aria-label="Close enquiry"
               >
                 <FaTimes />
               </button>
+
             </header>
 
-            <div className="admin-enquiry-info-grid">
+            {/* VISITOR CARD */}
+
+            <div
+              style={{
+                padding: "15px",
+                marginBottom: "16px",
+                display: "flex",
+                alignItems: "center",
+                gap: "12px",
+                border:
+                  "1px solid #e8edf3",
+                borderRadius: "11px",
+                background: "#f8fafc",
+              }}
+            >
+
+              <div
+                className="admin-enquiry-avatar"
+                style={{
+                  width: "42px",
+                  height: "42px",
+                }}
+              >
+                {selectedEnquiry.name
+                  ?.charAt(0)
+                  .toUpperCase() ||
+                  <FaUser />}
+              </div>
+
               <div>
-                <span>Name</span>
+
+                <strong
+                  style={{
+                    display: "block",
+                    color: "#263950",
+                    fontSize: "0.8rem",
+                  }}
+                >
+                  {selectedEnquiry.name}
+                </strong>
+
+                <span
+                  style={{
+                    display: "block",
+                    marginTop: "2px",
+                    color: "#8491a3",
+                    fontSize: "0.6rem",
+                  }}
+                >
+                  {selectedEnquiry.email}
+                </span>
+
+              </div>
+
+            </div>
+
+            {/* INFO */}
+
+            <div className="admin-enquiry-info-grid">
+
+              <div>
+                <span>
+                  Name
+                </span>
+
                 <strong>
                   {selectedEnquiry.name}
                 </strong>
               </div>
 
               <div>
-                <span>Email</span>
+                <span>
+                  Email
+                </span>
+
                 <strong>
                   {selectedEnquiry.email}
                 </strong>
               </div>
 
               <div>
-                <span>Date</span>
+                <span>
+                  Date
+                </span>
+
                 <strong>
                   {formatDate(
                     selectedEnquiry.createdAt
@@ -387,27 +908,47 @@ function Enquiries() {
               </div>
 
               <div>
-                <span>Status</span>
+                <span>
+                  Status
+                </span>
+
                 <strong>
                   {selectedEnquiry.status}
                 </strong>
               </div>
+
             </div>
 
+            {/* MESSAGE */}
+
             <article className="admin-enquiry-message-box">
-              <span>Message</span>
+
+              <span>
+                Message
+              </span>
 
               <p>
                 {selectedEnquiry.message}
               </p>
+
             </article>
 
-            <div className="admin-form-actions">
+            {/* ACTIONS */}
+
+            <div
+              className="admin-form-actions"
+              style={{
+                marginTop: "18px",
+              }}
+            >
+
               <button
                 className="admin-secondary-button"
                 type="button"
                 onClick={() =>
-                  setSelectedEnquiry(null)
+                  setSelectedEnquiry(
+                    null
+                  )
                 }
               >
                 Close
@@ -429,13 +970,22 @@ function Enquiries() {
                     )
                   }
                 >
-                  Mark Resolved
+                  <FaCheckCircle />
+
+                  {updating ===
+                  selectedEnquiry._id
+                    ? "Updating..."
+                    : "Mark Resolved"}
                 </button>
               )}
+
             </div>
+
           </section>
+
         </div>
       )}
+
     </main>
   );
 }

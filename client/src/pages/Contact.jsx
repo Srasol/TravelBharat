@@ -68,7 +68,10 @@ function Contact() {
 
       setFormData(emptyForm);
     } catch (requestError) {
-      console.error("Contact enquiry error:", requestError);
+      console.error(
+        "Contact enquiry error:",
+        requestError
+      );
 
       setError(
         requestError.response?.data?.message ||
@@ -80,154 +83,192 @@ function Contact() {
   };
 
   return (
-    <main className="contact-page">
+    <main className="tb-contact-page">
 
       {/* HERO */}
 
-      <section className="contact-hero">
-        <div className="container contact-hero-content">
-          <span>CONTACT TRAVELBHARAT</span>
+      <section className="tb-contact-hero">
+
+        <div className="tb-contact-hero-overlay"></div>
+
+        <div className="container tb-contact-hero-content">
+
+          <span>
+            CONTACT TRAVELBHARAT
+          </span>
 
           <h1>
-            We're Here to
+            Let’s make your
             <br />
-            Help You Explore
+            journey easier.
           </h1>
 
           <p>
             Have a tourism question, suggestion or correction?
-            Send us a message and help us make TravelBharat
+            Reach out to us and help us make TravelBharat
             better for every traveler.
           </p>
+
         </div>
+
       </section>
 
-      {/* CONTACT SECTION */}
+      {/* CONTACT AREA */}
 
-      <section className="contact-section">
+      <section className="tb-contact-section">
+
         <div className="container">
 
-          <div className="contact-layout">
+          <div className="tb-contact-layout">
 
-            {/* LEFT SIDE */}
+            {/* LEFT */}
 
-            <aside className="contact-info-panel">
+            <aside className="tb-contact-info">
 
-              <span className="contact-small-title">
+              <span className="tb-contact-eyebrow">
                 GET IN TOUCH
               </span>
 
               <h2>
-                We'd Love to Hear From You
+                We’d love to
+                hear from you.
               </h2>
 
-              <p className="contact-info-description">
+              <p className="tb-contact-description">
                 Whether you have a question about a destination,
-                want to suggest a new place, or noticed information
-                that needs updating, feel free to contact us.
+                want to suggest a new place or noticed information
+                that needs updating, you can contact us here.
               </p>
 
-              <div className="contact-info-list">
+              <div className="tb-contact-list">
 
-                <div className="contact-info-item">
-                  <div className="contact-info-icon">
+                <div className="tb-contact-item">
+
+                  <div>
                     <FaEnvelope />
                   </div>
 
-                  <div>
-                    <small>Email</small>
+                  <section>
+                    <small>
+                      Email
+                    </small>
+
                     <strong>
                       support@travelbharat.com
                     </strong>
+
                     <p>
-                      Send us your tourism questions
+                      Tourism questions and suggestions
                     </p>
-                  </div>
+                  </section>
+
                 </div>
 
-                <div className="contact-info-item">
-                  <div className="contact-info-icon">
+                <div className="tb-contact-item">
+
+                  <div>
                     <FaPhoneAlt />
                   </div>
 
-                  <div>
-                    <small>Phone</small>
+                  <section>
+                    <small>
+                      Phone
+                    </small>
+
                     <strong>
                       +91 98765 43210
                     </strong>
+
                     <p>
                       Contact our support team
                     </p>
-                  </div>
+                  </section>
+
                 </div>
 
-                <div className="contact-info-item">
-                  <div className="contact-info-icon">
+                <div className="tb-contact-item">
+
+                  <div>
                     <FaMapMarkerAlt />
                   </div>
 
-                  <div>
-                    <small>Location</small>
-                    <strong>India</strong>
+                  <section>
+                    <small>
+                      Location
+                    </small>
+
+                    <strong>
+                      India
+                    </strong>
+
                     <p>
                       Exploring India state by state
                     </p>
-                  </div>
+                  </section>
+
                 </div>
 
               </div>
 
-              <div className="contact-help-box">
+              <div className="tb-contact-help">
+
                 <FaQuestionCircle />
 
                 <div>
                   <strong>
-                    Destination Information
+                    Need destination information?
                   </strong>
 
                   <p>
-                    Ask us about tourist places, categories,
-                    locations or information available on
-                    TravelBharat.
+                    Ask us about places, categories,
+                    locations or TravelBharat content.
                   </p>
                 </div>
+
               </div>
 
             </aside>
 
-            {/* RIGHT SIDE */}
+            {/* RIGHT */}
 
             <form
-              className="contact-form-card"
+              className="tb-contact-form"
               onSubmit={handleSubmit}
             >
 
-              <div className="contact-form-heading">
-                <span>SEND AN ENQUIRY</span>
+              <div className="tb-contact-form-header">
 
-                <h2>How Can We Help?</h2>
+                <span>
+                  SEND AN ENQUIRY
+                </span>
+
+                <h2>
+                  How can we help?
+                </h2>
 
                 <p>
-                  Fill in the form below and send your
+                  Fill in the details below and send your
                   message to the TravelBharat team.
                 </p>
+
               </div>
 
               {success && (
-                <div className="contact-success-message">
+                <div className="tb-contact-success">
                   {success}
                 </div>
               )}
 
               {error && (
-                <div className="contact-error-message">
+                <div className="tb-contact-error">
                   {error}
                 </div>
               )}
 
-              <div className="contact-form-grid">
+              <div className="tb-contact-form-grid">
 
-                <div className="contact-field">
+                <div className="tb-contact-field">
+
                   <label htmlFor="contact-name">
                     Full Name
                   </label>
@@ -242,9 +283,11 @@ function Contact() {
                     disabled={sending}
                     required
                   />
+
                 </div>
 
-                <div className="contact-field">
+                <div className="tb-contact-field">
+
                   <label htmlFor="contact-email">
                     Email Address
                   </label>
@@ -259,11 +302,13 @@ function Contact() {
                     disabled={sending}
                     required
                   />
+
                 </div>
 
               </div>
 
-              <div className="contact-field">
+              <div className="tb-contact-field">
+
                 <label htmlFor="contact-subject">
                   Subject
                 </label>
@@ -278,9 +323,11 @@ function Contact() {
                   disabled={sending}
                   required
                 />
+
               </div>
 
-              <div className="contact-field">
+              <div className="tb-contact-field">
+
                 <label htmlFor="contact-message">
                   Message
                 </label>
@@ -295,10 +342,11 @@ function Contact() {
                   disabled={sending}
                   required
                 />
+
               </div>
 
               <button
-                className="contact-submit-button"
+                className="tb-contact-submit"
                 type="submit"
                 disabled={sending}
               >
@@ -309,7 +357,7 @@ function Contact() {
                   : "Send Enquiry"}
               </button>
 
-              <div className="contact-form-note">
+              <div className="tb-contact-note">
                 <FaShieldAlt />
 
                 <span>
@@ -321,26 +369,34 @@ function Contact() {
             </form>
 
           </div>
+
         </div>
+
       </section>
 
-      {/* BOTTOM SECTION */}
+      {/* BOTTOM */}
 
-      <section className="contact-bottom-section">
+      <section className="tb-contact-bottom">
+
         <div className="container">
-          <span>TRAVELBHARAT</span>
+
+          <span>
+            TRAVELBHARAT
+          </span>
 
           <h2>
-            Helping You Discover
+            Helping you discover
             <br />
-            Incredible India
+            Incredible India.
           </h2>
 
           <p>
             Explore destinations, discover cultures and
             experience the diversity of India.
           </p>
+
         </div>
+
       </section>
 
     </main>

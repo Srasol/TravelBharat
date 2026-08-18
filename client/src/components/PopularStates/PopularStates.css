@@ -1,48 +1,552 @@
-.popular-states{
-    padding:90px 0;
-    background:#fff;
+/* =========================================================
+   TRAVELBHARAT — PREMIUM STATES
+========================================================= */
+
+.premium-states-section {
+  position: relative;
+
+  padding: 120px 0;
+
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      135deg,
+      #071624 0%,
+      #0a2130 55%,
+      #0c2e39 100%
+    );
 }
 
-.states-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-    gap:30px;
+/* BIG BACKGROUND TEXT */
+
+.premium-states-decoration {
+  position: absolute;
+
+  right: -20px;
+  top: 20px;
+
+  color:
+    rgba(255, 255, 255, 0.025);
+
+  font-size: 18vw;
+  font-weight: 950;
+
+  letter-spacing: -10px;
+
+  pointer-events: none;
 }
 
-.state-card{
-    background:#fff;
-    border-radius:20px;
-    overflow:hidden;
-    box-shadow:0 10px 30px rgba(0,0,0,.08);
-    transition:.3s;
+/* =========================================================
+   HEADER
+========================================================= */
+
+.premium-states-header {
+  position: relative;
+  z-index: 2;
+
+  margin-bottom: 50px;
+
+  display: grid;
+
+  grid-template-columns:
+    1.1fr 0.9fr;
+
+  align-items: end;
+
+  gap: 70px;
 }
 
-.state-card:hover{
-    transform:translateY(-8px);
+.premium-states-header > div:first-child > span {
+  display: block;
+
+  margin-bottom: 14px;
+
+  color: #ff9b43;
+
+  font-size: 0.67rem;
+  font-weight: 900;
+
+  letter-spacing: 2px;
 }
 
-.state-card img{
-    width:100%;
-    height:220px;
-    object-fit:cover;
+.premium-states-header h2 {
+  margin: 0;
+
+  color: #ffffff;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:
+    clamp(
+      3rem,
+      5.5vw,
+      5.2rem
+    );
+
+  font-weight: 400;
+
+  line-height: 0.98;
+
+  letter-spacing: -3px;
 }
 
-.state-content{
-    padding:22px;
+.premium-states-header-right {
+  padding-bottom: 7px;
 }
 
-.state-content h3{
-    margin-bottom:10px;
-    color:#10233f;
+.premium-states-header-right p {
+  max-width: 520px;
+
+  margin: 0 0 20px;
+
+  color:
+    rgba(255, 255, 255, 0.57);
+
+  font-size: 0.9rem;
+
+  line-height: 1.85;
 }
 
-.state-content p{
-    color:#666;
-    margin-bottom:18px;
+.premium-states-header-right a {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 10px;
+
+  color: #ffffff;
+
+  text-decoration: none;
+
+  font-size: 0.76rem;
+  font-weight: 850;
+
+  transition: 0.25s ease;
 }
 
-.state-content a{
-    color:#ff9933;
-    text-decoration:none;
-    font-weight:bold;
+.premium-states-header-right a:hover {
+  color: #ff9b43;
+
+  gap: 15px;
+}
+
+/* =========================================================
+   GRID
+========================================================= */
+
+.premium-states-grid {
+  position: relative;
+  z-index: 2;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  grid-auto-rows: 370px;
+
+  gap: 20px;
+}
+
+/* LARGE FIRST CARD */
+
+.premium-state-large {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+/* =========================================================
+   CARD
+========================================================= */
+
+.premium-state-card {
+  position: relative;
+
+  overflow: hidden;
+
+  border:
+    1px solid rgba(255, 255, 255, 0.08);
+
+  border-radius: 26px;
+
+  color: #ffffff;
+
+  text-decoration: none;
+
+  background: #122b39;
+
+  box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.22);
+
+  isolation: isolate;
+}
+
+.premium-state-card img {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+
+  transition:
+    transform 0.7s
+      cubic-bezier(
+        0.2,
+        0.65,
+        0.25,
+        1
+      );
+}
+
+.premium-state-card:hover img {
+  transform: scale(1.07);
+}
+
+/* OVERLAY */
+
+.premium-state-overlay {
+  position: absolute;
+  inset: 0;
+
+  z-index: 1;
+
+  background:
+    linear-gradient(
+      to top,
+      rgba(3, 13, 24, 0.94) 0%,
+      rgba(3, 13, 24, 0.45) 50%,
+      rgba(3, 13, 24, 0.12) 100%
+    );
+
+  transition: 0.35s ease;
+}
+
+.premium-state-card:hover
+.premium-state-overlay {
+  background:
+    linear-gradient(
+      to top,
+      rgba(3, 13, 24, 0.96) 0%,
+      rgba(3, 13, 24, 0.36) 50%,
+      rgba(3, 13, 24, 0.08) 100%
+    );
+}
+
+/* NUMBER */
+
+.premium-state-number {
+  position: absolute;
+
+  top: 20px;
+  right: 22px;
+
+  z-index: 3;
+
+  color:
+    rgba(255, 255, 255, 0.62);
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size: 0.78rem;
+}
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.premium-state-content {
+  position: absolute;
+
+  left: 24px;
+  right: 24px;
+  bottom: 23px;
+
+  z-index: 3;
+}
+
+.premium-state-label {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: #ffae65;
+
+  font-size: 0.58rem;
+  font-weight: 900;
+
+  letter-spacing: 1.5px;
+}
+
+.premium-state-content h3 {
+  margin: 0 0 8px;
+
+  color: #ffffff;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size: 2rem;
+
+  font-weight: 400;
+
+  line-height: 1;
+}
+
+.premium-state-large
+.premium-state-content h3 {
+  font-size:
+    clamp(
+      3.4rem,
+      5vw,
+      5rem
+    );
+}
+
+.premium-state-capital {
+  margin: 0 0 11px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 6px;
+
+  color:
+    rgba(255, 255, 255, 0.66);
+
+  font-size: 0.7rem;
+}
+
+.premium-state-capital svg {
+  color: #ff9933;
+}
+
+.premium-state-description {
+  max-width: 500px;
+
+  margin: 0 0 16px;
+
+  overflow: hidden;
+
+  color:
+    rgba(255, 255, 255, 0.58);
+
+  font-size: 0.75rem;
+
+  line-height: 1.65;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+/* Large card gets more text */
+
+.premium-state-large
+.premium-state-description {
+  max-width: 580px;
+
+  font-size: 0.82rem;
+
+  -webkit-line-clamp: 3;
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.premium-state-footer {
+  padding-top: 14px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  border-top:
+    1px solid rgba(255, 255, 255, 0.14);
+
+  color:
+    rgba(255, 255, 255, 0.82);
+
+  font-size: 0.69rem;
+  font-weight: 800;
+}
+
+.premium-state-footer > div {
+  width: 34px;
+  height: 34px;
+
+  display: grid;
+  place-items: center;
+
+  border:
+    1px solid rgba(255, 255, 255, 0.16);
+
+  border-radius: 50%;
+
+  background:
+    rgba(255, 255, 255, 0.08);
+
+  transition:
+    transform 0.25s ease,
+    background 0.25s ease;
+}
+
+.premium-state-card:hover
+.premium-state-footer > div {
+  background: #ff8d2c;
+
+  transform:
+    translateX(4px)
+    rotate(-5deg);
+}
+
+/* =========================================================
+   PLACEHOLDER
+========================================================= */
+
+.premium-state-placeholder {
+  position: absolute;
+  inset: 0;
+
+  display: grid;
+  place-items: center;
+
+  color: #8fa0ad;
+
+  background: #15313f;
+
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+.premium-states-loading,
+.premium-states-empty {
+  min-height: 380px;
+
+  position: relative;
+  z-index: 2;
+
+  display: grid;
+  place-items: center;
+  align-content: center;
+
+  color:
+    rgba(255, 255, 255, 0.6);
+
+  border:
+    1px solid rgba(255, 255, 255, 0.08);
+
+  border-radius: 26px;
+
+  background:
+    rgba(255, 255, 255, 0.04);
+}
+
+.premium-states-spinner {
+  width: 42px;
+  height: 42px;
+
+  margin-bottom: 12px;
+
+  border:
+    4px solid rgba(255, 255, 255, 0.15);
+
+  border-top-color: #ff9933;
+
+  border-radius: 50%;
+
+  animation:
+    premium-state-spin
+    0.8s linear infinite;
+}
+
+@keyframes premium-state-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1050px) {
+
+  .premium-states-header {
+    grid-template-columns: 1fr;
+
+    gap: 24px;
+  }
+
+  .premium-states-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+    grid-auto-rows: 350px;
+  }
+
+  .premium-state-large {
+    grid-column: span 2;
+  }
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+  .premium-states-section {
+    padding: 90px 0;
+  }
+
+  .premium-states-header h2 {
+    font-size:
+      clamp(
+        2.7rem,
+        13vw,
+        4rem
+      );
+
+    letter-spacing: -2px;
+  }
+
+  .premium-states-grid {
+    grid-template-columns: 1fr;
+
+    grid-auto-rows: 330px;
+  }
+
+  .premium-state-large {
+    grid-column: auto;
+    grid-row: auto;
+
+    min-height: 470px;
+  }
+
+  .premium-state-content h3,
+  .premium-state-large
+  .premium-state-content h3 {
+    font-size: 2.4rem;
+  }
+
+  .premium-state-description {
+    -webkit-line-clamp: 2;
+  }
 }

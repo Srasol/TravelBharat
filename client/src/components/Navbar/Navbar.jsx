@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import {
+  FaArrowRight,
   FaBars,
   FaCompass,
   FaSearch,
@@ -18,7 +19,7 @@ function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 30);
+      setScrolled(window.scrollY > 24);
     };
 
     handleScroll();
@@ -35,11 +36,9 @@ function Navbar() {
   }, [location.pathname]);
 
   useEffect(() => {
-    if (menuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
+    document.body.style.overflow = menuOpen
+      ? "hidden"
+      : "";
 
     return () => {
       document.body.style.overflow = "";
@@ -52,69 +51,59 @@ function Navbar() {
 
   const navLinkClass = ({ isActive }) =>
     isActive
-      ? "travel-nav-link active"
-      : "travel-nav-link";
+      ? "luxury-nav-link active"
+      : "luxury-nav-link";
 
   return (
     <>
       <header
         className={
           scrolled
-            ? "travel-header travel-header-scrolled"
-            : "travel-header"
+            ? "luxury-header luxury-header-scrolled"
+            : "luxury-header"
         }
       >
-        <nav className="travel-navbar container">
+        <nav className="luxury-navbar container">
 
-          {/* LOGO */}
+          {/* BRAND */}
 
           <Link
-            className="travel-brand"
+            className="luxury-brand"
             to="/"
             onClick={closeMenu}
           >
-            <span className="travel-brand-icon">
+            <div className="luxury-brand-mark">
               <FaCompass />
-            </span>
+            </div>
 
-            <span className="travel-brand-text">
-              Travel<span>Bharat</span>
-            </span>
+            <div className="luxury-brand-copy">
+              <strong>
+                Travel<span>Bharat</span>
+              </strong>
+
+              <small>
+                DISCOVER INDIA
+              </small>
+            </div>
           </Link>
 
-          {/* MOBILE BUTTON */}
-
-          <button
-            className="travel-menu-toggle"
-            type="button"
-            onClick={() =>
-              setMenuOpen((current) => !current)
-            }
-            aria-label={
-              menuOpen
-                ? "Close navigation menu"
-                : "Open navigation menu"
-            }
-          >
-            {menuOpen ? <FaTimes /> : <FaBars />}
-          </button>
-
-          {/* NAVIGATION */}
+          {/* DESKTOP / MOBILE CONTENT */}
 
           <div
             className={
               menuOpen
-                ? "travel-nav-content open"
-                : "travel-nav-content"
+                ? "luxury-nav-panel open"
+                : "luxury-nav-panel"
             }
           >
-            <div className="travel-nav-links">
+            <div className="luxury-nav-links">
 
               <NavLink
                 className={navLinkClass}
                 to="/"
                 onClick={closeMenu}
               >
+                <span>01</span>
                 Home
               </NavLink>
 
@@ -123,6 +112,7 @@ function Navbar() {
                 to="/search"
                 onClick={closeMenu}
               >
+                <span>02</span>
                 Explore
               </NavLink>
 
@@ -131,6 +121,7 @@ function Navbar() {
                 to="/states"
                 onClick={closeMenu}
               >
+                <span>03</span>
                 States
               </NavLink>
 
@@ -139,6 +130,7 @@ function Navbar() {
                 to="/gallery"
                 onClick={closeMenu}
               >
+                <span>04</span>
                 Gallery
               </NavLink>
 
@@ -147,6 +139,7 @@ function Navbar() {
                 to="/about"
                 onClick={closeMenu}
               >
+                <span>05</span>
                 About
               </NavLink>
 
@@ -155,17 +148,18 @@ function Navbar() {
                 to="/contact"
                 onClick={closeMenu}
               >
+                <span>06</span>
                 Contact
               </NavLink>
 
             </div>
 
-            {/* ACTION BUTTONS */}
+            {/* ACTIONS */}
 
-            <div className="travel-nav-actions">
+            <div className="luxury-nav-actions">
 
               <Link
-                className="travel-search-button"
+                className="luxury-search-action"
                 to="/search"
                 onClick={closeMenu}
                 aria-label="Search destinations"
@@ -174,34 +168,51 @@ function Navbar() {
               </Link>
 
               <Link
-                className="travel-explore-button"
+                className="luxury-explore-action"
                 to="/search"
                 onClick={closeMenu}
               >
-                <FaCompass />
                 Explore India
+                <FaArrowRight />
               </Link>
 
               <Link
-                className="travel-admin-button"
+                className="luxury-admin-action"
                 to="/admin"
                 onClick={closeMenu}
               >
                 <FaUserShield />
-                Admin
               </Link>
 
             </div>
           </div>
+
+          {/* MOBILE TOGGLE */}
+
+          <button
+            type="button"
+            className="luxury-menu-toggle"
+            onClick={() =>
+              setMenuOpen((current) => !current)
+            }
+            aria-label={
+              menuOpen
+                ? "Close navigation"
+                : "Open navigation"
+            }
+          >
+            {menuOpen ? <FaTimes /> : <FaBars />}
+          </button>
+
         </nav>
       </header>
 
       {menuOpen && (
         <button
           type="button"
-          className="travel-mobile-overlay"
+          className="luxury-nav-overlay"
           onClick={closeMenu}
-          aria-label="Close navigation menu"
+          aria-label="Close navigation"
         />
       )}
     </>

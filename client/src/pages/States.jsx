@@ -2,11 +2,14 @@ import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   FaArrowRight,
+  FaCompass,
   FaMapMarkerAlt,
   FaSearch,
 } from "react-icons/fa";
 
 import { getStates } from "../services/stateService";
+import { getImageUrl } from "../utils/imageUrl";
+
 import "../styles/states.css";
 
 function States() {
@@ -40,7 +43,9 @@ function States() {
   };
 
   const filteredStates = useMemo(() => {
-    const keyword = search.trim().toLowerCase();
+    const keyword = search
+      .trim()
+      .toLowerCase();
 
     if (!keyword) {
       return states;
@@ -48,187 +53,272 @@ function States() {
 
     return states.filter((state) => {
       return (
-        state.name?.toLowerCase().includes(keyword) ||
-        state.capital?.toLowerCase().includes(keyword) ||
-        state.description?.toLowerCase().includes(keyword)
+        state.name
+          ?.toLowerCase()
+          .includes(keyword) ||
+        state.capital
+          ?.toLowerCase()
+          .includes(keyword) ||
+        state.description
+          ?.toLowerCase()
+          .includes(keyword)
       );
     });
   }, [states, search]);
 
   return (
-    <main className="states-page">
+    <main className="tb-states-page">
 
-      {/* ===============================
-          HERO
-      =============================== */}
+      {/* HERO */}
 
-      <section className="states-hero">
-        <div className="container">
-          <span>DISCOVER INDIA</span>
+      <section className="tb-states-hero">
 
-          <h1>
-            Explore India
-            <br />
-            State by State
-          </h1>
+        <div className="tb-states-hero-overlay"></div>
 
-          <p>
-            Discover beautiful destinations, rich heritage,
-            local culture and unforgettable experiences
-            across India's incredible states.
-          </p>
-        </div>
-      </section>
+        <div className="container tb-states-hero-content">
 
-      {/* ===============================
-          STATES
-      =============================== */}
+          <div className="tb-states-hero-copy">
 
-      <section className="states-section">
-        <div className="container">
+            <span className="tb-states-badge">
+              <FaCompass />
+              DISCOVER INDIA
+            </span>
 
-          {/* Heading */}
-
-          <div className="states-section-header">
-            <div>
-              <span>EXPLORE DESTINATIONS</span>
-
-              <h2>Indian States</h2>
-
-              <p>
-                Choose a state and discover the tourist
-                destinations waiting for you.
-              </p>
-            </div>
-
-            <div className="states-count">
-              <strong>{states.length}</strong>
+            <h1>
+              Every state.
+              <br />
 
               <span>
-                State{states.length === 1 ? "" : "s"}
+                A different India.
               </span>
-            </div>
+            </h1>
+
+            <p>
+              Travel through royal kingdoms, tropical
+              landscapes, historic cities, mountain
+              escapes and unforgettable cultures across
+              India's incredible states.
+            </p>
+
           </div>
 
-          {/* Search */}
-
-          <div className="states-search-wrapper">
-            <div className="states-search">
-              <FaSearch />
-
-              <input
-                type="search"
-                placeholder="Search state or capital..."
-                value={search}
-                onChange={(event) =>
-                  setSearch(event.target.value)
-                }
-              />
-            </div>
+          <div className="tb-states-hero-info">
 
             <span>
-              Showing {filteredStates.length} result
-              {filteredStates.length === 1 ? "" : "s"}
+              EXPLORE
             </span>
+
+            <strong>
+              {loading ? "..." : states.length}
+            </strong>
+
+            <p>
+              Indian states ready
+              to be discovered.
+            </p>
+
           </div>
 
-          {/* Loading */}
+        </div>
+
+      </section>
+
+      {/* MAIN CONTENT */}
+
+      <section className="tb-states-content">
+
+        <div className="container">
+
+          {/* SEARCH PANEL */}
+
+          <div className="tb-states-search-panel">
+
+            <div className="tb-states-search-copy">
+
+              <span>
+                FIND YOUR JOURNEY
+              </span>
+
+              <h2>
+                Explore India,
+                state by state.
+              </h2>
+
+            </div>
+
+            <div className="tb-states-search-area">
+
+              <div className="tb-states-search-box">
+
+                <FaSearch />
+
+                <input
+                  type="search"
+                  placeholder="Search state, capital or destination..."
+                  value={search}
+                  onChange={(event) =>
+                    setSearch(
+                      event.target.value
+                    )
+                  }
+                />
+
+              </div>
+
+              <span className="tb-states-results-count">
+                {filteredStates.length}{" "}
+                result
+                {filteredStates.length === 1
+                  ? ""
+                  : "s"}
+              </span>
+
+            </div>
+
+          </div>
+
+          {/* LOADING */}
 
           {loading ? (
-            <div className="states-message">
-              <div className="states-loader"></div>
+            <div className="tb-states-message">
 
-              <h3>Loading states...</h3>
+              <div className="tb-states-loader"></div>
+
+              <h3>
+                Discovering India...
+              </h3>
 
               <p>
-                Discovering incredible destinations for you.
+                Loading states and travel experiences.
               </p>
+
             </div>
           ) : error ? (
-            <div className="states-message">
-              <h3>Unable to load states</h3>
-              <p>{error}</p>
-            </div>
-          ) : filteredStates.length === 0 ? (
-            <div className="states-message">
-              <FaMapMarkerAlt />
+            <div className="tb-states-message">
 
-              <h3>No states found</h3>
+              <h3>
+                Unable to load states
+              </h3>
 
               <p>
-                Try searching with a different state or
-                capital name.
+                {error}
               </p>
+
+            </div>
+          ) : filteredStates.length === 0 ? (
+            <div className="tb-states-message">
+
+              <FaMapMarkerAlt />
+
+              <h3>
+                No states found
+              </h3>
+
+              <p>
+                Try another state,
+                capital or keyword.
+              </p>
+
             </div>
           ) : (
-            <div className="states-grid">
+            <div className="tb-states-grid">
 
-              {filteredStates.map((state) => (
-                <Link
-                  to={`/states/${state._id}`}
-                  className="state-card"
-                  key={state._id}
-                >
+              {filteredStates.map(
+                (state, index) => (
+                  <Link
+                    to={`/states/${state._id}`}
+                    className={`tb-state-card ${
+                      index === 0
+                        ? "tb-state-card-featured"
+                        : ""
+                    }`}
+                    key={state._id}
+                  >
 
-                  {/* Image */}
-
-                  <div className="state-card-image">
+                    {/* IMAGE */}
 
                     {state.image ? (
                       <img
-                        src={`http://localhost:5000/${state.image}`}
+                        src={getImageUrl(
+                          state.image
+                        )}
                         alt={state.name}
                       />
                     ) : (
-                      <div className="state-no-image">
+                      <div className="tb-state-placeholder">
                         <FaMapMarkerAlt />
                       </div>
                     )}
 
-                    <div className="state-image-overlay"></div>
+                    <div className="tb-state-shade"></div>
 
-                    <div className="state-card-title">
-                      <span>Explore</span>
+                    {/* NUMBER */}
 
-                      <h2>{state.name}</h2>
+                    <span className="tb-state-number">
+                      {String(index + 1).padStart(
+                        2,
+                        "0"
+                      )}
+                    </span>
 
-                      <p>
-                        <FaMapMarkerAlt />
-                        Capital: {state.capital}
-                      </p>
-                    </div>
+                    {/* TOP LABEL */}
 
-                  </div>
+                    <div className="tb-state-top">
 
-                  {/* Information */}
-
-                  <div className="state-card-content">
-
-                    <p>
-                      {state.description ||
-                        `Explore beautiful destinations and experiences across ${state.name}.`}
-                    </p>
-
-                    <div className="state-card-footer">
                       <span>
-                        Explore {state.name}
+                        EXPLORE STATE
                       </span>
 
                       <div>
                         <FaArrowRight />
                       </div>
+
                     </div>
 
-                  </div>
+                    {/* CONTENT */}
 
-                </Link>
-              ))}
+                    <div className="tb-state-info">
+
+                      <p>
+                        <FaMapMarkerAlt />
+
+                        Capital:{" "}
+                        {state.capital}
+                      </p>
+
+                      <h2>
+                        {state.name}
+                      </h2>
+
+                      <span className="tb-state-description">
+                        {state.description ||
+                          `Discover beautiful destinations and experiences across ${state.name}.`}
+                      </span>
+
+                      <div className="tb-state-bottom">
+
+                        <span>
+                          Discover{" "}
+                          {state.name}
+                        </span>
+
+                        <FaArrowRight />
+
+                      </div>
+
+                    </div>
+
+                  </Link>
+                )
+              )}
 
             </div>
           )}
 
         </div>
+
       </section>
+
     </main>
   );
 }

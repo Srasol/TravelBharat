@@ -3,20 +3,12 @@ import { Link } from "react-router-dom";
 import {
   FaArrowRight,
   FaImages,
+  FaMapMarkerAlt,
 } from "react-icons/fa";
 
-import { Swiper, SwiperSlide } from "swiper/react";
-import {
-  Autoplay,
-  Navigation,
-  Pagination,
-} from "swiper/modules";
-
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-
 import API from "../../services/api";
+import { getImageUrl } from "../../utils/imageUrl";
+
 import "./HomeGallery.css";
 
 function HomeGallery() {
@@ -37,7 +29,10 @@ function HomeGallery() {
 
       setPlaces(response.data.places || []);
     } catch (requestError) {
-      console.error("Home gallery error:", requestError);
+      console.error(
+        "Home gallery error:",
+        requestError
+      );
 
       setError(
         requestError.response?.data?.message ||
@@ -49,111 +44,185 @@ function HomeGallery() {
   };
 
   const galleryImages = useMemo(() => {
-    return places.flatMap((place) =>
-      (place.images || []).map((image, index) => ({
-        id: `${place._id}-${index}`,
-        image,
-        name: place.name,
-        state: place.state?.name || "",
-        city: place.city?.name || "",
-        category: place.category?.name || "",
-      }))
-    );
+    return places
+      .flatMap((place) =>
+        (place.images || []).map((image, index) => ({
+          id: `${place._id}-${index}`,
+          placeId: place._id,
+          image,
+          name: place.name,
+          state: place.state?.name || "",
+          city: place.city?.name || "",
+          category:
+            place.category?.name || "Destination",
+        }))
+      )
+      .slice(0, 6);
   }, [places]);
 
   return (
-    <section className="home-gallery">
+    <section className="tb-gallery-section">
+
+      <div className="tb-gallery-watermark">
+        MOMENTS
+      </div>
+
       <div className="container">
-        <div className="home-gallery-header">
+
+        {/* HEADER */}
+
+        <div className="tb-gallery-header">
+
           <div>
-            <span>TRAVEL MOMENTS</span>
+            <span>
+              VISUAL JOURNEY
+            </span>
 
-            <h2>Explore Our Gallery</h2>
-
-            <p>
-              Discover beautiful destinations across India
-              through images uploaded from the TravelBharat
-              admin panel.
-            </p>
+            <h2>
+              India,
+              <br />
+              through every frame.
+            </h2>
           </div>
 
-          <Link to="/gallery">
-            View Full Gallery
-            <FaArrowRight />
-          </Link>
+          <div className="tb-gallery-intro">
+
+            <p>
+              Step into beautiful moments from destinations
+              across India — from iconic landmarks and royal
+              cities to peaceful landscapes and unforgettable
+              escapes.
+            </p>
+
+            <Link to="/gallery">
+              View full gallery
+              <FaArrowRight />
+            </Link>
+
+          </div>
+
         </div>
 
-        {loading ? (
-          <div className="home-gallery-empty">
-            <p>Loading gallery...</p>
-          </div>
-        ) : error ? (
-          <div className="home-gallery-empty">
-            <p>{error}</p>
-          </div>
-        ) : galleryImages.length === 0 ? (
-          <div className="home-gallery-empty">
-            <FaImages size={34} />
+        {/* CONTENT */}
 
-            <h3>No gallery images yet</h3>
+        {loading ? (
+          <div className="tb-gallery-message">
+
+            <div className="tb-gallery-spinner"></div>
 
             <p>
-              Upload tourist-place images from the admin panel.
+              Loading travel moments...
             </p>
+
+          </div>
+        ) : error ? (
+          <div className="tb-gallery-message">
+
+            <FaImages />
+
+            <h3>
+              Unable to load gallery
+            </h3>
+
+            <p>
+              {error}
+            </p>
+
+          </div>
+        ) : galleryImages.length === 0 ? (
+          <div className="tb-gallery-message">
+
+            <FaImages />
+
+            <h3>
+              No gallery images yet
+            </h3>
+
+            <p>
+              Upload tourist-place images from the
+              TravelBharat admin panel.
+            </p>
+
           </div>
         ) : (
-          <Swiper
-            className="home-gallery-swiper"
-            modules={[
-              Autoplay,
-              Navigation,
-              Pagination,
-            ]}
-            slidesPerView={1}
-            spaceBetween={0}
-            loop={galleryImages.length > 1}
-            speed={900}
-            autoplay={{
-              delay: 2800,
-              disableOnInteraction: false,
-              pauseOnMouseEnter: true,
-            }}
-            navigation
-            pagination={{
-              clickable: true,
-            }}
-          >
-            {galleryImages.map((item) => (
-              <SwiperSlide key={item.id}>
-                <article className="home-gallery-card">
-                  <img
-                    src={`http://localhost:5000/${item.image}`}
-                    alt={item.name}
-                  />
+          <div className="tb-gallery-grid">
 
-                  <div className="home-gallery-overlay">
+            {galleryImages.map((item, index) => (
+              <Link
+                to={`/places/${item.placeId}`}
+                className={`tb-gallery-item tb-gallery-item-${
+                  index + 1
+                }`}
+                key={item.id}
+              >
+
+                <img
+                  src={getImageUrl(item.image)}
+                  alt={item.name}
+                />
+
+                <div className="tb-gallery-shade"></div>
+
+                <span className="tb-gallery-index">
+                  {String(index + 1).padStart(
+                    2,
+                    "0"
+                  )}
+                </span>
+
+                <span className="tb-gallery-category">
+                  {item.category}
+                </span>
+
+                <div className="tb-gallery-content">
+
+                  <p>
+                    <FaMapMarkerAlt />
+
+                    {item.city}
+
+                    {item.city && item.state
+                      ? ", "
+                      : ""}
+
+                    {item.state}
+                  </p>
+
+                  <h3>
+                    {item.name}
+                  </h3>
+
+                  <div>
                     <span>
-                      {item.category ||
-                        "TravelBharat Gallery"}
+                      Discover
                     </span>
 
-                    <h3>{item.name}</h3>
-
-                    <p>
-                      {item.city}
-
-                      {item.city && item.state
-                        ? ", "
-                        : ""}
-
-                      {item.state}
-                    </p>
+                    <FaArrowRight />
                   </div>
-                </article>
-              </SwiperSlide>
+
+                </div>
+
+              </Link>
             ))}
-          </Swiper>
+
+          </div>
         )}
+
+        {/* BOTTOM */}
+
+        <div className="tb-gallery-footer">
+
+          <span>
+            A COLLECTION OF INCREDIBLE INDIA
+          </span>
+
+          <Link to="/gallery">
+            Explore all moments
+            <FaArrowRight />
+          </Link>
+
+        </div>
+
       </div>
     </section>
   );

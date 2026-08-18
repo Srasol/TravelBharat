@@ -1,4 +1,6 @@
+import { Link } from "react-router-dom";
 import {
+  FaArrowRight,
   FaGlobeAsia,
   FaLandmark,
   FaMapMarkedAlt,
@@ -12,24 +14,28 @@ import "../styles/about.css";
 function About() {
   const features = [
     {
+      number: "01",
       icon: <FaMapMarkedAlt />,
       title: "State-Wise Exploration",
       description:
         "Explore tourist destinations across India through organized state-wise and city-wise information.",
     },
     {
+      number: "02",
       icon: <FaSearchLocation />,
       title: "Easy Discovery",
       description:
         "Search and filter destinations by state, city and tourism category to quickly find places of interest.",
     },
     {
+      number: "03",
       icon: <FaLandmark />,
       title: "Rich Destination Details",
       description:
         "Learn about destination history, best time to visit, entry fees, timings, nearby attractions and more.",
     },
     {
+      number: "04",
       icon: <FaShieldAlt />,
       title: "Admin Managed Content",
       description:
@@ -38,46 +44,60 @@ function About() {
   ];
 
   return (
-    <main className="about-page">
+    <main className="tb-about-page">
 
       {/* HERO */}
 
-      <section className="about-hero">
-        <div className="container about-hero-content">
-          <span>ABOUT TRAVELBHARAT</span>
+      <section className="tb-about-hero">
+        <div className="tb-about-hero-overlay"></div>
+
+        <div className="container tb-about-hero-content">
+
+          <span>
+            ABOUT TRAVELBHARAT
+          </span>
 
           <h1>
             Discover India,
             <br />
-            One State at a Time
+            one story at a time.
           </h1>
 
           <p>
-            TravelBharat is a centralized tourism information
-            platform designed to make discovering India's
-            incredible destinations simple, structured and
-            enjoyable.
+            TravelBharat is a modern tourism platform
+            designed to make discovering India's
+            incredible destinations simple, organized
+            and inspiring.
           </p>
+
         </div>
       </section>
 
-      {/* INTRODUCTION */}
+      {/* STORY */}
 
-      <section className="about-introduction">
+      <section className="tb-about-story">
         <div className="container">
-          <div className="about-intro-grid">
 
-            <article className="about-intro-content">
-              <span>OUR STORY</span>
+          <div className="tb-about-story-layout">
+
+            <div className="tb-about-story-heading">
+              <span>
+                OUR STORY
+              </span>
 
               <h2>
-                Your Digital Guide to Incredible India
+                A digital guide to
+                <br />
+                Incredible India.
               </h2>
+            </div>
+
+            <div className="tb-about-story-content">
 
               <p>
                 India offers extraordinary diversity in
                 landscapes, history, architecture, culture,
-                religion and traditions. However, tourism
+                religion and traditions. Yet tourism
                 information is often scattered across many
                 different websites and sources.
               </p>
@@ -96,123 +116,204 @@ function About() {
                 discover the diversity of India through an
                 easy-to-use digital experience.
               </p>
-            </article>
 
-            <aside className="about-highlight-card">
-              <div className="about-highlight-icon">
-                <FaGlobeAsia />
-              </div>
+              <Link to="/search">
+                Explore India
+                <FaArrowRight />
+              </Link>
 
-              <span>TRAVELBHARAT</span>
+            </div>
 
-              <h3>
-                Explore India State by State
-              </h3>
+          </div>
+
+        </div>
+      </section>
+
+      {/* BRAND HIGHLIGHT */}
+
+      <section className="tb-about-highlight">
+        <div className="container">
+
+          <div className="tb-about-highlight-card">
+
+            <div className="tb-about-highlight-icon">
+              <FaGlobeAsia />
+            </div>
+
+            <div>
+              <span>
+                TRAVELBHARAT
+              </span>
+
+              <h2>
+                Explore India
+                <br />
+                state by state.
+              </h2>
 
               <p>
                 A modern tourism information platform built
                 to organize India's destinations into one
-                accessible digital travel encyclopedia.
+                accessible digital travel experience.
               </p>
+            </div>
 
-              <div className="about-highlight-line"></div>
+            <div className="tb-about-highlight-tags">
+              <span>
+                Culture
+              </span>
 
-              <small>
-                Incredible India • Culture • Heritage • Nature
-              </small>
-            </aside>
+              <span>
+                Heritage
+              </span>
+
+              <span>
+                Nature
+              </span>
+
+              <span>
+                Discovery
+              </span>
+            </div>
 
           </div>
+
         </div>
       </section>
 
-      {/* MISSION */}
+      {/* PURPOSE */}
 
-      <section className="about-mission">
+      <section className="tb-about-purpose">
         <div className="container">
-          <div className="about-section-heading">
-            <span>OUR PURPOSE</span>
+
+          <div className="tb-about-section-heading">
+            <span>
+              OUR PURPOSE
+            </span>
 
             <h2>
-              Making Indian Tourism Easier to Explore
+              Built to simplify the
+              way India is explored.
             </h2>
 
             <p>
-              TravelBharat focuses on providing structured,
-              accessible and informative tourism content.
+              TravelBharat focuses on structured,
+              accessible and useful tourism information.
             </p>
           </div>
 
-          <div className="about-mission-grid">
+          <div className="tb-about-purpose-grid">
 
-            <article className="about-mission-card">
-              <span>01</span>
+            <article>
+              <span>
+                01
+              </span>
 
-              <h3>Our Mission</h3>
+              <h3>
+                Our Mission
+              </h3>
 
               <p>
-                Provide a single platform where users can
-                easily discover tourist destinations across
+                Provide one platform where users can
+                discover tourist destinations across
                 Indian states and cities.
               </p>
             </article>
 
-            <article className="about-mission-card">
-              <span>02</span>
+            <article>
+              <span>
+                02
+              </span>
 
-              <h3>Our Vision</h3>
+              <h3>
+                Our Vision
+              </h3>
 
               <p>
-                Build a scalable digital tourism encyclopedia
-                that promotes India's heritage, culture,
-                nature and lesser-known destinations.
+                Build a scalable digital tourism
+                encyclopedia that promotes India's
+                heritage, culture and natural beauty.
               </p>
             </article>
 
-            <article className="about-mission-card">
-              <span>03</span>
+            <article>
+              <span>
+                03
+              </span>
 
-              <h3>Our Goal</h3>
+              <h3>
+                Our Goal
+              </h3>
 
               <p>
-                Simplify tourism information so travelers,
-                students and researchers can discover India
-                without searching across multiple websites.
+                Make tourism information easier to access
+                for travelers, students and researchers.
               </p>
             </article>
 
           </div>
+
         </div>
       </section>
 
       {/* FEATURES */}
 
-      <section className="about-features">
+      <section className="tb-about-features">
         <div className="container">
 
-          <div className="about-section-heading">
-            <span>WHAT WE OFFER</span>
+          <div className="tb-about-features-layout">
 
-            <h2>
-              Everything You Need to Discover a Destination
-            </h2>
-          </div>
+            <div className="tb-about-features-heading">
 
-          <div className="about-features-grid">
-            {features.map((feature) => (
-              <article
-                className="about-feature-card"
-                key={feature.title}
-              >
-                <div className="about-feature-icon">
-                  {feature.icon}
-                </div>
+              <span>
+                WHAT WE OFFER
+              </span>
 
-                <h3>{feature.title}</h3>
+              <h2>
+                Everything you need
+                to discover a place.
+              </h2>
 
-                <p>{feature.description}</p>
-              </article>
-            ))}
+              <p>
+                Search, explore and understand destinations
+                through one carefully structured platform.
+              </p>
+
+            </div>
+
+            <div className="tb-about-features-grid">
+
+              {features.map((feature) => (
+                <article
+                  className="tb-about-feature-card"
+                  key={feature.title}
+                >
+
+                  <div className="tb-about-feature-top">
+
+                    <span>
+                      {feature.number}
+                    </span>
+
+                    <div>
+                      {feature.icon}
+                    </div>
+
+                  </div>
+
+                  <h3>
+                    {feature.title}
+                  </h3>
+
+                  <p>
+                    {feature.description}
+                  </p>
+
+                </article>
+              ))}
+
+            </div>
+
           </div>
 
         </div>
@@ -220,46 +321,57 @@ function About() {
 
       {/* RESPONSIBLE TOURISM */}
 
-      <section className="about-tourism">
+      <section className="tb-about-tourism">
         <div className="container">
-          <div className="about-tourism-card">
 
-            <div className="about-tourism-icon">
+          <div className="tb-about-tourism-card">
+
+            <div className="tb-about-tourism-icon">
               <FaTree />
             </div>
 
-            <div>
-              <span>RESPONSIBLE DISCOVERY</span>
+            <div className="tb-about-tourism-copy">
+
+              <span>
+                RESPONSIBLE DISCOVERY
+              </span>
 
               <h2>
-                Promoting Awareness of India's Tourism
+                Discover more.
+                <br />
+                Travel with awareness.
               </h2>
 
               <p>
                 TravelBharat encourages travelers to learn
                 about India's cultural heritage, natural
                 attractions and regional diversity while
-                promoting awareness of lesser-known
-                destinations across the country.
+                discovering lesser-known destinations.
               </p>
+
             </div>
 
           </div>
+
         </div>
       </section>
 
-      {/* FINAL CTA */}
+      {/* FINAL */}
 
-      <section className="about-final">
+      <section className="tb-about-final">
+
         <div className="container">
+
           <FaGlobeAsia />
 
-          <span>EXPLORE INCREDIBLE INDIA</span>
+          <span>
+            EXPLORE INCREDIBLE INDIA
+          </span>
 
           <h2>
-            Every State Has a Story.
+            Every state has a story.
             <br />
-            Start Discovering It.
+            Start discovering it.
           </h2>
 
           <p>
@@ -267,7 +379,14 @@ function About() {
             heritage, discover India's destinations with
             TravelBharat.
           </p>
+
+          <Link to="/search">
+            Start Exploring
+            <FaArrowRight />
+          </Link>
+
         </div>
+
       </section>
 
     </main>

@@ -1,15 +1,16 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import {
-  FaMapMarkerAlt,
+  FaArrowRight,
   FaCalendarAlt,
-  FaClock,
-  FaTicketAlt,
-  FaStar,
+  FaMapMarkerAlt,
   FaSearch,
+  FaStar,
 } from "react-icons/fa";
 
 import API from "../../services/api";
+import { getImageUrl } from "../../utils/imageUrl";
+
 import "./FeaturedDestinations.css";
 
 function FeaturedDestinations() {
@@ -25,86 +26,145 @@ function FeaturedDestinations() {
 
   const loadPlaces = async () => {
     try {
-      const response = await API.get("/places");
-     const allPlaces = response.data.places || [];
+      setLoading(true);
 
-setPlaces(allPlaces.slice(0, 6));
+      const response = await API.get("/places");
+
+      const allPlaces =
+        response.data.places || [];
+
+      setPlaces(allPlaces.slice(0, 6));
     } catch (error) {
-      console.log(error);
+      console.error(
+        "Featured destinations error:",
+        error
+      );
     } finally {
       setLoading(false);
     }
   };
 
   const categories = useMemo(() => {
-    const list = [
+    return [
       "All",
       ...new Set(
-        places.map((place) => place.category?.name).filter(Boolean)
+        places
+          .map(
+            (place) =>
+              place.category?.name
+          )
+          .filter(Boolean)
       ),
     ];
-
-    return list;
   }, [places]);
 
-  const filteredPlaces = places.filter((place) => {
-    const searchMatch =
-      place.name.toLowerCase().includes(search.toLowerCase()) ||
-      place.state?.name
-        ?.toLowerCase()
-        .includes(search.toLowerCase());
+  const filteredPlaces = useMemo(() => {
+    const keyword =
+      search.trim().toLowerCase();
 
-    const categoryMatch =
-      category === "All" ||
-      place.category?.name === category;
+    return places.filter((place) => {
+      const searchMatch =
+        !keyword ||
+        place.name
+          ?.toLowerCase()
+          .includes(keyword) ||
+        place.state?.name
+          ?.toLowerCase()
+          .includes(keyword) ||
+        place.city?.name
+          ?.toLowerCase()
+          .includes(keyword);
 
-    return searchMatch && categoryMatch;
-  });
+      const categoryMatch =
+        category === "All" ||
+        place.category?.name === category;
+
+      return (
+        searchMatch &&
+        categoryMatch
+      );
+    });
+  }, [places, search, category]);
+
+  const featuredPlace =
+    filteredPlaces[0] || null;
+
+  const smallerPlaces =
+    filteredPlaces.slice(1, 5);
 
   return (
-    <section className="featured">
+    <section className="premium-destinations">
 
       <div className="container">
 
-        <div className="section-title">
-          <span>FEATURED DESTINATIONS</span>
+        {/* TOP HEADER */}
 
-          <h2>Explore India's Most Beautiful Places</h2>
+        <div className="premium-destinations-header">
 
-          <p>
-            Discover destinations managed directly from the
-            TravelBharat Admin Panel.
-          </p>
+          <div className="premium-destinations-title">
+
+            <span>
+              CURATED JOURNEYS
+            </span>
+
+            <h2>
+              Places that make
+              <br />
+              India unforgettable.
+            </h2>
+
+          </div>
+
+          <div className="premium-destinations-description">
+
+            <p>
+              Discover iconic landmarks, peaceful hill
+              stations, royal heritage and unforgettable
+              destinations selected from across India.
+            </p>
+
+            <Link to="/search">
+              Explore all destinations
+              <FaArrowRight />
+            </Link>
+
+          </div>
+
         </div>
 
-        <div className="featured-toolbar">
+        {/* FILTER BAR */}
 
-          <div className="featured-search">
+        <div className="premium-destination-toolbar">
 
+          <div className="premium-destination-search">
             <FaSearch />
 
             <input
               type="text"
-              placeholder="Search tourist places..."
+              placeholder="Search destinations..."
               value={search}
-              onChange={(e) =>
-                setSearch(e.target.value)
+              onChange={(event) =>
+                setSearch(
+                  event.target.value
+                )
               }
             />
-
           </div>
 
-          <div className="featured-filters">
+          <div className="premium-destination-filters">
 
             {categories.map((item) => (
               <button
                 key={item}
+                type="button"
                 className={
                   category === item
                     ? "active"
                     : ""
                 }
-                onClick={() => setCategory(item)}
+                onClick={() =>
+                  setCategory(item)
+                }
               >
                 {item}
               </button>
@@ -114,78 +174,190 @@ setPlaces(allPlaces.slice(0, 6));
 
         </div>
 
-        {loading ? (
-          <h3>Loading...</h3>
-        ) : (
-          <div className="featured-grid">
+        {/* CONTENT */}
 
-            {filteredPlaces.map((place) => (
-              <div
-                className="featured-card"
-                key={place._id}
+        {loading ? (
+          <div className="premium-destination-loading">
+
+            <div className="premium-destination-spinner"></div>
+
+            <p>
+              Discovering destinations...
+            </p>
+
+          </div>
+        ) : filteredPlaces.length === 0 ? (
+          <div className="premium-destination-empty">
+
+            <h3>
+              No destinations found
+            </h3>
+
+            <p>
+              Try another destination or category.
+            </p>
+
+          </div>
+        ) : (
+          <div className="premium-destination-layout">
+
+            {/* MAIN FEATURE */}
+
+            {featuredPlace && (
+              <Link
+                to={`/places/${featuredPlace._id}`}
+                className="premium-main-destination"
               >
 
-                {place.images?.length > 0 ? (
-  <img
-    src={`http://localhost:5000/${place.images[0]}`}
-    alt={place.name}
-  />
-) : (
-  <div className="featured-no-image">
-    No Image Available
-  </div>
-)}
-
-                <div className="featured-content">
-
-                  <div className="featured-rating">
-                    <FaStar />
-                    <FaStar />
-                    <FaStar />
-                    <FaStar />
-                    <FaStar />
+                {featuredPlace.images?.length > 0 ? (
+                  <img
+                    src={getImageUrl(
+                      featuredPlace.images[0]
+                    )}
+                    alt={featuredPlace.name}
+                  />
+                ) : (
+                  <div className="premium-destination-no-image">
+                    No Image Available
                   </div>
+                )}
 
-                  <h3>{place.name}</h3>
+                <div className="premium-main-overlay"></div>
 
-                  <p>
-                    <FaMapMarkerAlt />
-                    {place.state?.name}
-                  </p>
+                <div className="premium-main-top">
 
-                  <p>
-                    <FaCalendarAlt />
-                    {place.bestTime || "Any Time"}
-                  </p>
+                  <span>
+                    {featuredPlace.category?.name ||
+                      "Destination"}
+                  </span>
 
-                  <p>
-                    <FaClock />
-                    {place.timings || "Not Available"}
-                  </p>
-
-                  <p>
-                    <FaTicketAlt />
-                    {place.entryFee || "Free"}
-                  </p>
-
-                  <Link
-                    to={`/places/${place._id}`}
-                  >
-                    Explore →
-                  </Link>
+                  <div>
+                    <FaStar />
+                    Featured
+                  </div>
 
                 </div>
 
-              </div>
-            ))}
+                <div className="premium-main-content">
+
+                  <p>
+                    <FaMapMarkerAlt />
+
+                    {featuredPlace.city?.name ||
+                      "Explore"}
+
+                    {featuredPlace.state?.name
+                      ? `, ${featuredPlace.state.name}`
+                      : ""}
+                  </p>
+
+                  <h3>
+                    {featuredPlace.name}
+                  </h3>
+
+                  <div className="premium-main-meta">
+
+                    <span>
+                      <FaCalendarAlt />
+
+                      {featuredPlace.bestTime ||
+                        "Any Time"}
+                    </span>
+
+                    <strong>
+                      Discover
+                      <FaArrowRight />
+                    </strong>
+
+                  </div>
+
+                </div>
+
+              </Link>
+            )}
+
+            {/* SMALL DESTINATIONS */}
+
+            <div className="premium-small-grid">
+
+              {smallerPlaces.map(
+                (place, index) => (
+                  <Link
+                    to={`/places/${place._id}`}
+                    className="premium-small-card"
+                    key={place._id}
+                  >
+
+                    {place.images?.length > 0 ? (
+                      <img
+                        src={getImageUrl(
+                          place.images[0]
+                        )}
+                        alt={place.name}
+                      />
+                    ) : (
+                      <div className="premium-destination-no-image">
+                        No Image
+                      </div>
+                    )}
+
+                    <div className="premium-small-overlay"></div>
+
+                    <span className="premium-small-number">
+                      0{index + 2}
+                    </span>
+
+                    <span className="premium-small-category">
+                      {place.category?.name ||
+                        "Destination"}
+                    </span>
+
+                    <div className="premium-small-content">
+
+                      <p>
+                        <FaMapMarkerAlt />
+
+                        {place.state?.name ||
+                          "India"}
+                      </p>
+
+                      <h3>
+                        {place.name}
+                      </h3>
+
+                      <div>
+                        <span>
+                          Explore
+                        </span>
+
+                        <FaArrowRight />
+                      </div>
+
+                    </div>
+
+                  </Link>
+                )
+              )}
+
+            </div>
 
           </div>
         )}
 
-        <div className="featured-view-all">
+        {/* BOTTOM CTA */}
+
+        <div className="premium-destinations-footer">
+
+          <span>
+            MORE PLACES ARE WAITING TO BE DISCOVERED
+          </span>
+
           <Link to="/search">
-            View All Tourist Places →
+            View all destinations
+
+            <FaArrowRight />
           </Link>
+
         </div>
 
       </div>

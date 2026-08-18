@@ -2,6 +2,8 @@ import { useEffect, useMemo, useState } from "react";
 import {
   FaEdit,
   FaImage,
+  FaMap,
+  FaMapMarkerAlt,
   FaPlus,
   FaSearch,
   FaTimes,
@@ -16,6 +18,8 @@ import {
   getStates,
   updateState,
 } from "../../services/adminStateService";
+
+import { getImageUrl } from "../../utils/imageUrl";
 
 import "../styles/admin.css";
 
@@ -41,6 +45,10 @@ function States() {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
 
+  /* ======================================================
+     LOAD STATES
+  ====================================================== */
+
   useEffect(() => {
     loadStates();
   }, []);
@@ -51,8 +59,11 @@ function States() {
       setError("");
 
       const data = await getStates();
+
       setStates(data.states || []);
     } catch (requestError) {
+      console.error("States error:", requestError);
+
       setError(
         requestError.response?.data?.message ||
           "Unable to load states."
@@ -61,6 +72,10 @@ function States() {
       setLoading(false);
     }
   };
+
+  /* ======================================================
+     SEARCH
+  ====================================================== */
 
   const filteredStates = useMemo(() => {
     const keyword = search.trim().toLowerCase();
@@ -78,6 +93,10 @@ function States() {
     });
   }, [states, search]);
 
+  /* ======================================================
+     FORM CHANGE
+  ====================================================== */
+
   const handleChange = (event) => {
     const { name, value, files } = event.target;
 
@@ -90,9 +109,12 @@ function States() {
       }));
 
       if (selectedFile) {
-        setImagePreview(URL.createObjectURL(selectedFile));
+        setImagePreview(
+          URL.createObjectURL(selectedFile)
+        );
       }
 
+      setError("");
       return;
     }
 
@@ -104,6 +126,10 @@ function States() {
     setError("");
   };
 
+  /* ======================================================
+     ADD
+  ====================================================== */
+
   const openAddForm = () => {
     setEditingState(null);
     setFormData(emptyForm);
@@ -112,6 +138,10 @@ function States() {
     setError("");
     setShowForm(true);
   };
+
+  /* ======================================================
+     EDIT
+  ====================================================== */
 
   const openEditForm = (state) => {
     setEditingState(state);
@@ -125,7 +155,7 @@ function States() {
 
     setImagePreview(
       state.image
-        ? `http://localhost:5000/${state.image}`
+        ? getImageUrl(state.image)
         : ""
     );
 
@@ -133,6 +163,10 @@ function States() {
     setError("");
     setShowForm(true);
   };
+
+  /* ======================================================
+     CLOSE FORM
+  ====================================================== */
 
   const closeForm = () => {
     setShowForm(false);
@@ -142,6 +176,10 @@ function States() {
     setError("");
   };
 
+  /* ======================================================
+     SAVE
+  ====================================================== */
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -150,21 +188,35 @@ function States() {
       !formData.capital.trim() ||
       !formData.description.trim()
     ) {
-      setError("Name, capital and description are required.");
+      setError(
+        "Name, capital and description are required."
+      );
+
       return;
     }
 
     const payload = new FormData();
 
-    payload.append("name", formData.name.trim());
-    payload.append("capital", formData.capital.trim());
+    payload.append(
+      "name",
+      formData.name.trim()
+    );
+
+    payload.append(
+      "capital",
+      formData.capital.trim()
+    );
+
     payload.append(
       "description",
       formData.description.trim()
     );
 
     if (formData.image) {
-      payload.append("image", formData.image);
+      payload.append(
+        "image",
+        formData.image
+      );
     }
 
     try {
@@ -179,19 +231,29 @@ function States() {
         );
 
         setMessage(
-          data.message || "State updated successfully."
+          data.message ||
+            "State updated successfully."
         );
       } else {
-        const data = await createState(payload);
+        const data = await createState(
+          payload
+        );
 
         setMessage(
-          data.message || "State created successfully."
+          data.message ||
+            "State created successfully."
         );
       }
 
       await loadStates();
+
       closeForm();
     } catch (requestError) {
+      console.error(
+        "Save state error:",
+        requestError
+      );
+
       setError(
         requestError.response?.data?.message ||
           "Unable to save state."
@@ -200,6 +262,10 @@ function States() {
       setSaving(false);
     }
   };
+
+  /* ======================================================
+     DELETE
+  ====================================================== */
 
   const handleDelete = async (state) => {
     const confirmed = window.confirm(
@@ -214,16 +280,27 @@ function States() {
       setMessage("");
       setError("");
 
-      const data = await deleteState(state._id);
+      const data = await deleteState(
+        state._id
+      );
 
       setStates((previous) =>
-        previous.filter((item) => item._id !== state._id)
+        previous.filter(
+          (item) =>
+            item._id !== state._id
+        )
       );
 
       setMessage(
-        data.message || "State deleted successfully."
+        data.message ||
+          "State deleted successfully."
       );
     } catch (requestError) {
+      console.error(
+        "Delete state error:",
+        requestError
+      );
+
       setError(
         requestError.response?.data?.message ||
           "Unable to delete state."
@@ -231,18 +308,38 @@ function States() {
     }
   };
 
+  /* ======================================================
+     PAGE
+  ====================================================== */
+
   return (
     <main className="admin-management-page">
+
       <Sidebar />
 
       <section className="admin-management-content">
+
+        {/* ==========================================
+            HEADER
+        ========================================== */}
+
         <header className="admin-page-header">
+
           <div>
-            <span>Destination Management</span>
-            <h1>States</h1>
+
+            <span>
+              Destination Management
+            </span>
+
+            <h1>
+              States
+            </h1>
+
             <p>
-              Add and maintain state-wise tourism information.
+              Manage Indian states, capitals,
+              tourism descriptions and images.
             </p>
+
           </div>
 
           <button
@@ -251,9 +348,124 @@ function States() {
             onClick={openAddForm}
           >
             <FaPlus />
+
             Add State
           </button>
+
         </header>
+
+        {/* ==========================================
+            SUMMARY
+        ========================================== */}
+
+        <section
+          style={{
+            display: "grid",
+            gridTemplateColumns:
+              "repeat(3, minmax(0, 1fr))",
+            gap: "12px",
+            marginBottom: "20px",
+          }}
+        >
+
+          <div className="admin-dashboard-stat-card">
+
+            <div className="admin-dashboard-stat-top">
+
+              <span>
+                TOTAL
+              </span>
+
+              <div className="admin-dashboard-stat-icon orange">
+                <FaMap />
+              </div>
+
+            </div>
+
+            <strong>
+              {loading
+                ? "..."
+                : states.length}
+            </strong>
+
+            <h3>
+              States
+            </h3>
+
+            <p>
+              Total states managed
+            </p>
+
+          </div>
+
+          <div className="admin-dashboard-stat-card">
+
+            <div className="admin-dashboard-stat-top">
+
+              <span>
+                RESULTS
+              </span>
+
+              <div className="admin-dashboard-stat-icon blue">
+                <FaSearch />
+              </div>
+
+            </div>
+
+            <strong>
+              {loading
+                ? "..."
+                : filteredStates.length}
+            </strong>
+
+            <h3>
+              Search Results
+            </h3>
+
+            <p>
+              Currently visible states
+            </p>
+
+          </div>
+
+          <div className="admin-dashboard-stat-card">
+
+            <div className="admin-dashboard-stat-top">
+
+              <span>
+                CONTENT
+              </span>
+
+              <div className="admin-dashboard-stat-icon green">
+                <FaImage />
+              </div>
+
+            </div>
+
+            <strong>
+              {
+                states.filter(
+                  (state) =>
+                    Boolean(state.image)
+                ).length
+              }
+            </strong>
+
+            <h3>
+              With Images
+            </h3>
+
+            <p>
+              States with tourism images
+            </p>
+
+          </div>
+
+        </section>
+
+        {/* ==========================================
+            MESSAGES
+        ========================================== */}
 
         {message && (
           <div className="admin-success-message">
@@ -267,9 +479,18 @@ function States() {
           </div>
         )}
 
+        {/* ==========================================
+            TABLE
+        ========================================== */}
+
         <section className="admin-table-panel">
+
+          {/* TOOLBAR */}
+
           <div className="admin-table-toolbar">
+
             <div className="admin-search-box">
+
               <FaSearch />
 
               <input
@@ -277,104 +498,262 @@ function States() {
                 placeholder="Search state, capital or description..."
                 value={search}
                 onChange={(event) =>
-                  setSearch(event.target.value)
+                  setSearch(
+                    event.target.value
+                  )
                 }
               />
+
             </div>
 
-            <span className="admin-result-count">
-              {filteredStates.length} state
-              {filteredStates.length === 1 ? "" : "s"}
-            </span>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+              }}
+            >
+
+              <span className="admin-result-count">
+                {filteredStates.length}{" "}
+                {filteredStates.length === 1
+                  ? "state"
+                  : "states"}
+              </span>
+
+              {search && (
+                <button
+                  className="admin-secondary-button"
+                  type="button"
+                  onClick={() =>
+                    setSearch("")
+                  }
+                >
+                  Clear
+                </button>
+              )}
+
+            </div>
+
           </div>
+
+          {/* LOADING */}
 
           {loading ? (
             <div className="admin-empty-state">
+
               <div className="admin-spinner"></div>
-              <p>Loading states...</p>
+
+              <p>
+                Loading states...
+              </p>
+
             </div>
           ) : filteredStates.length === 0 ? (
             <div className="admin-empty-state">
+
               <FaImage size={34} />
-              <h3>No states found</h3>
-              <p>Add a state or change the search keyword.</p>
+
+              <h3>
+                No states found
+              </h3>
+
+              <p>
+                Add a state or change
+                your search keyword.
+              </p>
+
             </div>
           ) : (
             <div className="admin-table-wrapper">
+
               <table className="admin-data-table">
+
                 <thead>
+
                   <tr>
-                    <th>Image</th>
-                    <th>State</th>
-                    <th>Capital</th>
-                    <th>Description</th>
-                    <th>Actions</th>
+                    <th>
+                      Image
+                    </th>
+
+                    <th>
+                      State
+                    </th>
+
+                    <th>
+                      Capital
+                    </th>
+
+                    <th>
+                      Description
+                    </th>
+
+                    <th>
+                      Actions
+                    </th>
                   </tr>
+
                 </thead>
 
                 <tbody>
-                  {filteredStates.map((state) => (
-                    <tr key={state._id}>
-                      <td>
-                        <div className="admin-state-image">
-                          {state.image ? (
-                            <img
-                              src={`http://localhost:5000/${state.image}`}
-                              alt={state.name}
-                            />
-                          ) : (
-                            <FaImage />
-                          )}
-                        </div>
-                      </td>
 
-                      <td>
-                        <strong>{state.name}</strong>
-                      </td>
+                  {filteredStates.map(
+                    (state) => (
+                      <tr key={state._id}>
 
-                      <td>{state.capital}</td>
+                        {/* IMAGE */}
 
-                      <td>
-                        <p className="admin-description-cell">
-                          {state.description}
-                        </p>
-                      </td>
+                        <td>
 
-                      <td>
-                        <div className="admin-table-actions">
-                          <button
-                            className="admin-edit-button"
-                            type="button"
-                            title="Edit state"
-                            onClick={() => openEditForm(state)}
+                          <div className="admin-state-image">
+
+                            {state.image ? (
+                              <img
+                                src={getImageUrl(
+                                  state.image
+                                )}
+                                alt={
+                                  state.name
+                                }
+                              />
+                            ) : (
+                              <FaImage />
+                            )}
+
+                          </div>
+
+                        </td>
+
+                        {/* STATE */}
+
+                        <td>
+
+                          <div
+                            style={{
+                              minWidth:
+                                "150px",
+                            }}
                           >
-                            <FaEdit />
-                          </button>
 
-                          <button
-                            className="admin-delete-button"
-                            type="button"
-                            title="Delete state"
-                            onClick={() => handleDelete(state)}
-                          >
-                            <FaTrash />
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
+                            <strong>
+                              {state.name}
+                            </strong>
+
+                            <div
+                              style={{
+                                marginTop:
+                                  "4px",
+                                display:
+                                  "flex",
+                                alignItems:
+                                  "center",
+                                gap: "5px",
+                                color:
+                                  "#94a3b8",
+                                fontSize:
+                                  "0.55rem",
+                              }}
+                            >
+                              <FaMapMarkerAlt
+                                style={{
+                                  color:
+                                    "#f47d22",
+                                }}
+                              />
+
+                              Indian State
+                            </div>
+
+                          </div>
+
+                        </td>
+
+                        {/* CAPITAL */}
+
+                        <td>
+
+                          <span className="admin-category-badge">
+                            {state.capital}
+                          </span>
+
+                        </td>
+
+                        {/* DESCRIPTION */}
+
+                        <td>
+
+                          <p className="admin-description-cell">
+                            {state.description}
+                          </p>
+
+                        </td>
+
+                        {/* ACTIONS */}
+
+                        <td>
+
+                          <div className="admin-table-actions">
+
+                            <button
+                              className="admin-edit-button"
+                              type="button"
+                              title="Edit state"
+                              onClick={() =>
+                                openEditForm(
+                                  state
+                                )
+                              }
+                            >
+                              <FaEdit />
+                            </button>
+
+                            <button
+                              className="admin-delete-button"
+                              type="button"
+                              title="Delete state"
+                              onClick={() =>
+                                handleDelete(
+                                  state
+                                )
+                              }
+                            >
+                              <FaTrash />
+                            </button>
+
+                          </div>
+
+                        </td>
+
+                      </tr>
+                    )
+                  )}
+
                 </tbody>
+
               </table>
+
             </div>
           )}
+
         </section>
+
       </section>
+
+      {/* ==================================================
+          ADD / EDIT STATE MODAL
+      =================================================== */}
 
       {showForm && (
         <div className="admin-modal-backdrop">
+
           <section className="admin-form-modal">
+
+            {/* HEADER */}
+
             <header className="admin-modal-header">
+
               <div>
+
                 <span>
                   {editingState
                     ? "Update State"
@@ -386,6 +765,7 @@ function States() {
                     ? "Edit State"
                     : "Add New State"}
                 </h2>
+
               </div>
 
               <button
@@ -395,7 +775,10 @@ function States() {
               >
                 <FaTimes />
               </button>
+
             </header>
+
+            {/* ERROR */}
 
             {error && (
               <div className="admin-error-message">
@@ -403,88 +786,211 @@ function States() {
               </div>
             )}
 
+            {/* FORM */}
+
             <form
               className="admin-state-form"
               onSubmit={handleSubmit}
             >
-              <div className="admin-form-grid">
-                <div className="admin-form-field">
-                  <label htmlFor="state-name">
-                    State name
-                  </label>
 
-                  <input
-                    id="state-name"
-                    name="name"
-                    type="text"
-                    placeholder="Example: Kerala"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                  />
+              {/* BASIC DETAILS */}
+
+              <div>
+
+                <div
+                  style={{
+                    marginBottom:
+                      "14px",
+                  }}
+                >
+                  <span
+                    style={{
+                      display:
+                        "block",
+                      marginBottom:
+                        "3px",
+                      color:
+                        "#f47d22",
+                      fontSize:
+                        "0.55rem",
+                      fontWeight:
+                        850,
+                      letterSpacing:
+                        "1px",
+                    }}
+                  >
+                    BASIC INFORMATION
+                  </span>
+
+                  <strong
+                    style={{
+                      color:
+                        "#10233f",
+                      fontSize:
+                        "0.9rem",
+                    }}
+                  >
+                    State details
+                  </strong>
                 </div>
 
-                <div className="admin-form-field">
-                  <label htmlFor="state-capital">
-                    Capital
-                  </label>
+                <div className="admin-form-grid">
 
-                  <input
-                    id="state-capital"
-                    name="capital"
-                    type="text"
-                    placeholder="Example: Thiruvananthapuram"
-                    value={formData.capital}
-                    onChange={handleChange}
-                    required
-                  />
+                  <div className="admin-form-field">
+
+                    <label htmlFor="state-name">
+                      State name
+                    </label>
+
+                    <input
+                      id="state-name"
+                      name="name"
+                      type="text"
+                      placeholder="Example: Kerala"
+                      value={formData.name}
+                      onChange={handleChange}
+                      disabled={saving}
+                      required
+                    />
+
+                  </div>
+
+                  <div className="admin-form-field">
+
+                    <label htmlFor="state-capital">
+                      Capital
+                    </label>
+
+                    <input
+                      id="state-capital"
+                      name="capital"
+                      type="text"
+                      placeholder="Example: Thiruvananthapuram"
+                      value={
+                        formData.capital
+                      }
+                      onChange={
+                        handleChange
+                      }
+                      disabled={saving}
+                      required
+                    />
+
+                  </div>
+
                 </div>
+
               </div>
 
+              {/* DESCRIPTION */}
+
               <div className="admin-form-field">
+
                 <label htmlFor="state-description">
-                  Description
+                  Tourism Description
                 </label>
 
                 <textarea
                   id="state-description"
                   name="description"
                   rows="5"
-                  placeholder="Write a short tourism description..."
-                  value={formData.description}
+                  placeholder="Write a short tourism description about the state..."
+                  value={
+                    formData.description
+                  }
                   onChange={handleChange}
+                  disabled={saving}
                   required
                 />
+
               </div>
 
-              <div className="admin-form-field">
-                <label htmlFor="state-image">
-                  State image
-                </label>
+              {/* IMAGE */}
 
-                <input
-                  id="state-image"
-                  name="image"
-                  type="file"
-                  accept="image/jpeg,image/png,image/webp"
-                  onChange={handleChange}
-                />
+              <div
+                style={{
+                  paddingTop:
+                    "4px",
+                }}
+              >
 
-                <small>
-                  Upload a JPG, PNG or WEBP image.
-                </small>
+                <div
+                  style={{
+                    marginBottom:
+                      "12px",
+                  }}
+                >
+                  <span
+                    style={{
+                      display:
+                        "block",
+                      marginBottom:
+                        "3px",
+                      color:
+                        "#f47d22",
+                      fontSize:
+                        "0.55rem",
+                      fontWeight:
+                        850,
+                      letterSpacing:
+                        "1px",
+                    }}
+                  >
+                    TOURISM IMAGE
+                  </span>
+
+                  <strong
+                    style={{
+                      color:
+                        "#10233f",
+                      fontSize:
+                        "0.9rem",
+                    }}
+                  >
+                    Representative state image
+                  </strong>
+                </div>
+
+                <div className="admin-form-field">
+
+                  <label htmlFor="state-image">
+                    State image
+                  </label>
+
+                  <input
+                    id="state-image"
+                    name="image"
+                    type="file"
+                    accept="image/jpeg,image/png,image/webp"
+                    onChange={handleChange}
+                    disabled={saving}
+                  />
+
+                  <small>
+                    Upload a JPG, PNG or WEBP image.
+                  </small>
+
+                </div>
+
               </div>
+
+              {/* IMAGE PREVIEW */}
 
               {imagePreview && (
                 <div className="admin-image-preview">
+
                   <img
                     src={imagePreview}
                     alt="State preview"
                   />
+
                 </div>
               )}
 
+              {/* ACTIONS */}
+
               <div className="admin-form-actions">
+
                 <button
                   className="admin-secondary-button"
                   type="button"
@@ -505,11 +1011,16 @@ function States() {
                       ? "Update State"
                       : "Save State"}
                 </button>
+
               </div>
+
             </form>
+
           </section>
+
         </div>
       )}
+
     </main>
   );
 }

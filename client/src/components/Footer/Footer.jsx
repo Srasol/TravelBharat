@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import {
+  FaArrowRight,
   FaCompass,
   FaEnvelope,
   FaFacebookF,
@@ -20,39 +21,93 @@ function Footer() {
   };
 
   return (
-    <footer className="travel-footer">
+    <footer className="tb-footer">
 
-      <div className="container travel-footer-main">
+      {/* =========================================
+          TOP CTA
+      ========================================== */}
+
+      <div className="container tb-footer-cta-wrap">
+
+        <div className="tb-footer-cta">
+
+          <div>
+            <span>
+              READY TO DISCOVER INDIA?
+            </span>
+
+            <h2>
+              Your next journey
+              <br />
+              starts here.
+            </h2>
+          </div>
+
+          <div className="tb-footer-cta-right">
+
+            <p>
+              Explore destinations, states, culture,
+              heritage and unforgettable experiences
+              across Incredible India.
+            </p>
+
+            <Link to="/search">
+              Explore India
+
+              <FaArrowRight />
+            </Link>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      {/* =========================================
+          MAIN FOOTER
+      ========================================== */}
+
+      <div className="container tb-footer-main">
 
         {/* BRAND */}
 
-        <div className="travel-footer-brand">
+        <div className="tb-footer-brand">
 
           <Link
-            className="travel-footer-logo"
             to="/"
             onClick={scrollTop}
+            className="tb-footer-logo"
           >
-            <span className="travel-footer-logo-icon">
+            <div className="tb-footer-logo-icon">
               <FaCompass />
-            </span>
+            </div>
 
-            <span className="travel-footer-logo-text">
-              Travel<span>Bharat</span>
-            </span>
+            <div className="tb-footer-logo-copy">
+              <strong>
+                Travel<span>Bharat</span>
+              </strong>
+
+              <small>
+                DISCOVER INDIA
+              </small>
+            </div>
           </Link>
 
           <p>
-            Discover India's incredible tourist destinations
-            state by state. Explore heritage, nature, culture
-            and unforgettable places across the country.
+            Discover India's incredible destinations
+            state by state — from heritage landmarks
+            and royal cities to peaceful landscapes,
+            beaches and unforgettable journeys.
           </p>
 
-          <div className="travel-footer-social">
+          <div className="tb-footer-socials">
+
             <a
               href="#"
               aria-label="Facebook"
-              onClick={(event) => event.preventDefault()}
+              onClick={(event) =>
+                event.preventDefault()
+              }
             >
               <FaFacebookF />
             </a>
@@ -60,7 +115,9 @@ function Footer() {
             <a
               href="#"
               aria-label="Instagram"
-              onClick={(event) => event.preventDefault()}
+              onClick={(event) =>
+                event.preventDefault()
+              }
             >
               <FaInstagram />
             </a>
@@ -68,113 +125,190 @@ function Footer() {
             <a
               href="#"
               aria-label="LinkedIn"
-              onClick={(event) => event.preventDefault()}
+              onClick={(event) =>
+                event.preventDefault()
+              }
             >
               <FaLinkedinIn />
             </a>
+
           </div>
 
         </div>
 
         {/* EXPLORE */}
 
-        <div className="travel-footer-column">
-          <h3>Explore</h3>
+        <div className="tb-footer-column">
 
-          <Link to="/" onClick={scrollTop}>
+          <span className="tb-footer-column-number">
+            01
+          </span>
+
+          <h3>
+            Explore
+          </h3>
+
+          <Link
+            to="/"
+            onClick={scrollTop}
+          >
             Home
           </Link>
 
-          <Link to="/search" onClick={scrollTop}>
-            Explore Destinations
+          <Link
+            to="/search"
+            onClick={scrollTop}
+          >
+            Destinations
           </Link>
 
-          <Link to="/states" onClick={scrollTop}>
+          <Link
+            to="/states"
+            onClick={scrollTop}
+          >
             Indian States
           </Link>
 
-          <Link to="/gallery" onClick={scrollTop}>
+          <Link
+            to="/gallery"
+            onClick={scrollTop}
+          >
             Gallery
           </Link>
+
         </div>
 
-        {/* INFORMATION */}
+        {/* COMPANY */}
 
-        <div className="travel-footer-column">
-          <h3>Information</h3>
+        <div className="tb-footer-column">
 
-          <Link to="/about" onClick={scrollTop}>
-            About TravelBharat
+          <span className="tb-footer-column-number">
+            02
+          </span>
+
+          <h3>
+            TravelBharat
+          </h3>
+
+          <Link
+            to="/about"
+            onClick={scrollTop}
+          >
+            About Us
           </Link>
 
-          <Link to="/contact" onClick={scrollTop}>
-            Contact Us
+          <Link
+            to="/contact"
+            onClick={scrollTop}
+          >
+            Contact
           </Link>
 
-          <Link to="/admin" onClick={scrollTop}>
+          <Link
+            to="/admin"
+            onClick={scrollTop}
+          >
             Admin Login
           </Link>
+
         </div>
 
         {/* CONTACT */}
 
-        <div className="travel-footer-column travel-footer-contact">
+        <div className="tb-footer-column tb-footer-contact">
 
-          <h3>Contact</h3>
+          <span className="tb-footer-column-number">
+            03
+          </span>
 
-          <div>
-            <span>
+          <h3>
+            Contact
+          </h3>
+
+          <div className="tb-footer-contact-item">
+
+            <div>
               <FaMapMarkerAlt />
-            </span>
+            </div>
 
             <p>
-              <small>Location</small>
-              <strong>India</strong>
+              <small>
+                Location
+              </small>
+
+              <strong>
+                India
+              </strong>
             </p>
+
           </div>
 
-          <div>
-            <span>
+          <div className="tb-footer-contact-item">
+
+            <div>
               <FaPhoneAlt />
-            </span>
+            </div>
 
             <p>
-              <small>Phone</small>
-              <strong>+91 98765 43210</strong>
+              <small>
+                Phone
+              </small>
+
+              <strong>
+                +91 98765 43210
+              </strong>
             </p>
+
           </div>
 
-          <div>
-            <span>
+          <div className="tb-footer-contact-item">
+
+            <div>
               <FaEnvelope />
-            </span>
+            </div>
 
             <p>
-              <small>Email</small>
+              <small>
+                Email
+              </small>
+
               <strong>
                 support@travelbharat.com
               </strong>
             </p>
+
           </div>
 
         </div>
 
       </div>
 
-      {/* BOTTOM */}
+      {/* =========================================
+          BOTTOM
+      ========================================== */}
 
-      <div className="travel-footer-bottom">
+      <div className="tb-footer-bottom">
+
         <div className="container">
 
           <p>
             © 2026 TravelBharat. All Rights Reserved.
           </p>
 
-          <span>
-            Explore India • Discover Culture • Experience Heritage
-          </span>
+          <div className="tb-footer-bottom-center">
+            <span></span>
+
+            Incredible India
+
+            <span></span>
+          </div>
+
+          <p>
+            Explore • Discover • Experience
+          </p>
 
         </div>
+
       </div>
 
     </footer>

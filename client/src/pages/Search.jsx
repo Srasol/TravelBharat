@@ -9,6 +9,8 @@ import {
 } from "react-icons/fa";
 
 import API from "../services/api";
+import { getImageUrl } from "../utils/imageUrl";
+
 import "../styles/search.css";
 
 function Search() {
@@ -53,8 +55,14 @@ function Search() {
         API.get("/categories"),
       ]);
 
-      setStates(statesResponse.data.states || []);
-      setCities(citiesResponse.data.cities || []);
+      setStates(
+        statesResponse.data.states || []
+      );
+
+      setCities(
+        citiesResponse.data.cities || []
+      );
+
       setCategories(
         categoriesResponse.data.categories || []
       );
@@ -91,11 +99,16 @@ function Search() {
         params.category = category;
       }
 
-      const response = await API.get("/places", {
-        params,
-      });
+      const response = await API.get(
+        "/places",
+        {
+          params,
+        }
+      );
 
-      setPlaces(response.data.places || []);
+      setPlaces(
+        response.data.places || []
+      );
     } catch (requestError) {
       console.error(
         "Search places error:",
@@ -140,11 +153,16 @@ function Search() {
   return (
     <main className="explore-page">
 
-      {/* HERO */}
+      {/* =====================================
+          HERO
+      ====================================== */}
 
       <section className="explore-hero">
         <div className="container">
-          <span>EXPLORE INDIA</span>
+
+          <span>
+            EXPLORE INDIA
+          </span>
 
           <h1>
             Find Your Next
@@ -153,14 +171,17 @@ function Search() {
           </h1>
 
           <p>
-            Search and discover incredible tourist
-            destinations across India by state, city
-            and category.
+            Search and discover incredible
+            tourist destinations across India
+            by state, city and category.
           </p>
+
         </div>
       </section>
 
-      {/* SEARCH AREA */}
+      {/* =====================================
+          SEARCH AREA
+      ====================================== */}
 
       <section className="explore-content">
         <div className="container">
@@ -168,12 +189,18 @@ function Search() {
           <div className="explore-filter-card">
 
             <div className="explore-filter-heading">
+
               <div>
                 <FaFilter />
 
                 <div>
-                  <span>DESTINATION FINDER</span>
-                  <h2>Explore Places</h2>
+                  <span>
+                    DESTINATION FINDER
+                  </span>
+
+                  <h2>
+                    Explore Places
+                  </h2>
                 </div>
               </div>
 
@@ -187,13 +214,15 @@ function Search() {
                   Clear Filters
                 </button>
               )}
+
             </div>
 
             <div className="explore-filters">
 
-              {/* Search */}
+              {/* SEARCH */}
 
               <div className="explore-search-input">
+
                 <FaSearch />
 
                 <input
@@ -201,12 +230,15 @@ function Search() {
                   placeholder="Search destination..."
                   value={search}
                   onChange={(event) =>
-                    setSearch(event.target.value)
+                    setSearch(
+                      event.target.value
+                    )
                   }
                 />
+
               </div>
 
-              {/* State */}
+              {/* STATE */}
 
               <select
                 value={state}
@@ -227,12 +259,14 @@ function Search() {
                 ))}
               </select>
 
-              {/* City */}
+              {/* CITY */}
 
               <select
                 value={city}
                 onChange={(event) =>
-                  setCity(event.target.value)
+                  setCity(
+                    event.target.value
+                  )
                 }
                 disabled={filterLoading}
               >
@@ -240,22 +274,26 @@ function Search() {
                   All Cities
                 </option>
 
-                {filteredCities.map((item) => (
-                  <option
-                    key={item._id}
-                    value={item._id}
-                  >
-                    {item.name}
-                  </option>
-                ))}
+                {filteredCities.map(
+                  (item) => (
+                    <option
+                      key={item._id}
+                      value={item._id}
+                    >
+                      {item.name}
+                    </option>
+                  )
+                )}
               </select>
 
-              {/* Category */}
+              {/* CATEGORY */}
 
               <select
                 value={category}
                 onChange={(event) =>
-                  setCategory(event.target.value)
+                  setCategory(
+                    event.target.value
+                  )
                 }
                 disabled={filterLoading}
               >
@@ -263,24 +301,31 @@ function Search() {
                   All Categories
                 </option>
 
-                {categories.map((item) => (
-                  <option
-                    key={item._id}
-                    value={item._id}
-                  >
-                    {item.name}
-                  </option>
-                ))}
+                {categories.map(
+                  (item) => (
+                    <option
+                      key={item._id}
+                      value={item._id}
+                    >
+                      {item.name}
+                    </option>
+                  )
+                )}
               </select>
 
             </div>
           </div>
 
-          {/* RESULTS HEADER */}
+          {/* =====================================
+              RESULTS HEADER
+          ====================================== */}
 
           <div className="explore-results-header">
+
             <div>
-              <span>DISCOVER</span>
+              <span>
+                DISCOVER
+              </span>
 
               <h2>
                 Tourist Destinations
@@ -296,12 +341,16 @@ function Search() {
                       : "s"
                   } found`}
             </p>
+
           </div>
 
-          {/* RESULTS */}
+          {/* =====================================
+              RESULTS
+          ====================================== */}
 
           {loading ? (
             <div className="explore-message">
+
               <div className="explore-loader"></div>
 
               <h3>
@@ -312,17 +361,23 @@ function Search() {
                 Searching TravelBharat for
                 beautiful places.
               </p>
+
             </div>
           ) : error ? (
             <div className="explore-message">
+
               <h3>
                 Unable to load destinations
               </h3>
 
-              <p>{error}</p>
+              <p>
+                {error}
+              </p>
+
             </div>
           ) : places.length === 0 ? (
             <div className="explore-message">
+
               <FaMapMarkerAlt />
 
               <h3>
@@ -342,6 +397,7 @@ function Search() {
                   Clear Filters
                 </button>
               )}
+
             </div>
           ) : (
             <div className="explore-grid">
@@ -359,7 +415,9 @@ function Search() {
 
                     {place.images?.length > 0 ? (
                       <img
-                        src={`http://localhost:5000/${place.images[0]}`}
+                        src={getImageUrl(
+                          place.images[0]
+                        )}
                         alt={place.name}
                       />
                     ) : (
@@ -379,9 +437,12 @@ function Search() {
 
                   <div className="explore-card-content">
 
-                    <h3>{place.name}</h3>
+                    <h3>
+                      {place.name}
+                    </h3>
 
                     <p className="explore-location">
+
                       <FaMapMarkerAlt />
 
                       {place.city?.name ||
@@ -390,6 +451,7 @@ function Search() {
                       {place.state?.name
                         ? `, ${place.state.name}`
                         : ""}
+
                     </p>
 
                     <p className="explore-description">
@@ -400,6 +462,7 @@ function Search() {
                     <div className="explore-card-info">
 
                       <div>
+
                         <FaCalendarAlt />
 
                         <span>
@@ -412,16 +475,21 @@ function Search() {
                               "Any time"}
                           </strong>
                         </span>
+
                       </div>
 
                     </div>
 
                     <div className="explore-card-footer">
+
                       <span>
                         View Destination
                       </span>
 
-                      <strong>→</strong>
+                      <strong>
+                        →
+                      </strong>
+
                     </div>
 
                   </div>
@@ -434,6 +502,7 @@ function Search() {
 
         </div>
       </section>
+
     </main>
   );
 }
