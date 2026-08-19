@@ -145,11 +145,7 @@ function AdminLogin() {
           </button>
         </form>
 
-        <div className="admin-demo-credentials">
-          <strong>Admin login</strong>
-          <span>admin@travelbharat.com</span>
-          <span>admin123</span>
-        </div>
+        
       </section>
     </main>
   );
