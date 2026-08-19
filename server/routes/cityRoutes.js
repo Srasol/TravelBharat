@@ -6,18 +6,38 @@ const {
   getCityById,
   updateCity,
   deleteCity,
-} = require("../controllers/cityController");
+} = require(
+  "../controllers/cityController"
+);
 
-const upload = require("../middleware/upload");
-const protectAdmin = require("../middleware/adminAuth");
+const upload = require(
+  "../middleware/upload"
+);
+
+const protectAdmin = require(
+  "../middleware/adminAuth"
+);
 
 const router = express.Router();
 
-// Public routes
-router.get("/", getCities);
-router.get("/:id", getCityById);
+/* =========================================================
+   PUBLIC ROUTES
+========================================================= */
 
-// Protected admin routes
+router.get(
+  "/",
+  getCities
+);
+
+router.get(
+  "/:id",
+  getCityById
+);
+
+/* =========================================================
+   ADMIN ROUTES
+========================================================= */
+
 router.post(
   "/",
   protectAdmin,
@@ -32,6 +52,10 @@ router.put(
   updateCity
 );
 
-router.delete("/:id", protectAdmin, deleteCity);
+router.delete(
+  "/:id",
+  protectAdmin,
+  deleteCity
+);
 
 module.exports = router;

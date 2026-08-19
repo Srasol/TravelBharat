@@ -1,20 +1,33 @@
 const multer = require("multer");
 const path = require("path");
 
-/*
-  Keep uploaded images in memory.
+/* =========================================================
+   MEMORY STORAGE
+========================================================= */
 
-  The controller will send the file buffer
-  directly to Cloudinary.
-*/
-const storage = multer.memoryStorage();
+const storage =
+  multer.memoryStorage();
 
-const fileFilter = (req, file, callback) => {
-  const allowedExtensions = /jpeg|jpg|png|webp/;
+/* =========================================================
+   FILE FILTER
+========================================================= */
 
-  const extensionIsValid = allowedExtensions.test(
-    path.extname(file.originalname).toLowerCase()
-  );
+const fileFilter = (
+  req,
+  file,
+  callback
+) => {
+  const allowedExtensions =
+    /jpeg|jpg|png|webp/;
+
+  const extensionIsValid =
+    allowedExtensions.test(
+      path
+        .extname(
+          file.originalname
+        )
+        .toLowerCase()
+    );
 
   const mimeTypeIsValid = [
     "image/jpeg",
@@ -23,7 +36,10 @@ const fileFilter = (req, file, callback) => {
     "image/webp",
   ].includes(file.mimetype);
 
-  if (extensionIsValid && mimeTypeIsValid) {
+  if (
+    extensionIsValid &&
+    mimeTypeIsValid
+  ) {
     callback(null, true);
   } else {
     callback(
@@ -35,12 +51,18 @@ const fileFilter = (req, file, callback) => {
   }
 };
 
+/* =========================================================
+   MULTER
+========================================================= */
+
 const upload = multer({
   storage,
+
   fileFilter,
 
   limits: {
-    fileSize: 5 * 1024 * 1024,
+    fileSize:
+      5 * 1024 * 1024,
   },
 });
 

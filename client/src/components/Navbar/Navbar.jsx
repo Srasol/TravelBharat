@@ -1,5 +1,10 @@
 import { useEffect, useState } from "react";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import {
+  Link,
+  NavLink,
+  useLocation,
+} from "react-router-dom";
+
 import {
   FaArrowRight,
   FaBars,
@@ -12,10 +17,17 @@ import {
 import "../../styles/navbar.css";
 
 function Navbar() {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] =
+    useState(false);
+
+  const [scrolled, setScrolled] =
+    useState(false);
 
   const location = useLocation();
+
+  /* =========================================
+     NAVBAR SCROLL EFFECT
+  ========================================= */
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,38 +36,69 @@ function Navbar() {
 
     handleScroll();
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener(
+      "scroll",
+      handleScroll
+    );
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener(
+        "scroll",
+        handleScroll
+      );
     };
   }, []);
+
+  /* =========================================
+     CLOSE MENU AFTER ROUTE CHANGE
+  ========================================= */
 
   useEffect(() => {
     setMenuOpen(false);
   }, [location.pathname]);
 
+  /* =========================================
+     PREVENT PAGE SCROLL WHEN MENU IS OPEN
+  ========================================= */
+
   useEffect(() => {
-    document.body.style.overflow = menuOpen
-      ? "hidden"
-      : "";
+    if (menuOpen) {
+      document.body.style.overflow =
+        "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
 
     return () => {
       document.body.style.overflow = "";
     };
   }, [menuOpen]);
 
+  /* =========================================
+     CLOSE MENU
+  ========================================= */
+
   const closeMenu = () => {
     setMenuOpen(false);
   };
 
-  const navLinkClass = ({ isActive }) =>
+  /* =========================================
+     NAV LINK CLASS
+  ========================================= */
+
+  const navLinkClass = ({
+    isActive,
+  }) =>
     isActive
       ? "luxury-nav-link active"
       : "luxury-nav-link";
 
   return (
     <>
+      {/* =====================================
+          HEADER
+      ====================================== */}
+
       <header
         className={
           scrolled
@@ -65,7 +108,9 @@ function Navbar() {
       >
         <nav className="luxury-navbar container">
 
-          {/* BRAND */}
+          {/* =================================
+              BRAND
+          ================================== */}
 
           <Link
             className="luxury-brand"
@@ -87,7 +132,9 @@ function Navbar() {
             </div>
           </Link>
 
-          {/* DESKTOP / MOBILE CONTENT */}
+          {/* =================================
+              NAVIGATION PANEL
+          ================================== */}
 
           <div
             className={
@@ -96,6 +143,8 @@ function Navbar() {
                 : "luxury-nav-panel"
             }
           >
+            {/* NAV LINKS */}
+
             <div className="luxury-nav-links">
 
               <NavLink
@@ -154,7 +203,9 @@ function Navbar() {
 
             </div>
 
-            {/* ACTIONS */}
+            {/* =================================
+                ACTION BUTTONS
+            ================================== */}
 
             <div className="luxury-nav-actions">
 
@@ -173,6 +224,7 @@ function Navbar() {
                 onClick={closeMenu}
               >
                 Explore India
+
                 <FaArrowRight />
               </Link>
 
@@ -180,6 +232,7 @@ function Navbar() {
                 className="luxury-admin-action"
                 to="/admin"
                 onClick={closeMenu}
+                aria-label="Admin"
               >
                 <FaUserShield />
               </Link>
@@ -187,25 +240,38 @@ function Navbar() {
             </div>
           </div>
 
-          {/* MOBILE TOGGLE */}
+          {/* =================================
+              MOBILE MENU BUTTON
+          ================================== */}
 
           <button
             type="button"
             className="luxury-menu-toggle"
             onClick={() =>
-              setMenuOpen((current) => !current)
+              setMenuOpen(
+                (current) => !current
+              )
             }
             aria-label={
               menuOpen
                 ? "Close navigation"
                 : "Open navigation"
             }
+            aria-expanded={menuOpen}
           >
-            {menuOpen ? <FaTimes /> : <FaBars />}
+            {menuOpen ? (
+              <FaTimes />
+            ) : (
+              <FaBars />
+            )}
           </button>
 
         </nav>
       </header>
+
+      {/* =====================================
+          MOBILE DARK OVERLAY
+      ====================================== */}
 
       {menuOpen && (
         <button
